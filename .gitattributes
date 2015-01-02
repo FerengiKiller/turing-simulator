@@ -1,0 +1,12 @@
+# Für alle Dateien erstmal diese blödsinnige CRLF-nach-LF-Konvertierung beim Repo-Aufbauen und LF-nach-BS-Default-Konvertierung beim Checkout abschalten
+# (nachfolgende Zeile bedeutet NICHT, dass alles als Binary verarbeitet wird, sondern steuert nur CRLF/LF-Handling)
+* -text
+
+
+# C#/VisualStudio-spezifische Einstellungen
+*.cs     diff=csharp
+*.html   diff=html
+*.htm    diff=html
+
+*.cmd    eol=crlf      encoding=cp850
+*.bat    eol=crlf      encoding=cp850
