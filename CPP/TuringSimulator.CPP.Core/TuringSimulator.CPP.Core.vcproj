@@ -178,6 +178,11 @@
 			ReferencedProjectIdentifier="{F52F6EB5-3BDA-4A1F-B894-5B8AEF74FB25}"
 			RelativePathToProject=".\CS\TuringSimulator.CS.Shared\TuringSimulator.CS.Shared.csproj"
 		/>
+		<AssemblyReference
+			RelativePath="System.Windows.Forms.dll"
+			AssemblyName="System.Windows.Forms, Version=2.0.0.0, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
+			MinFrameworkVersion="131072"
+		/>
 	</References>
 	<Files>
 		<Filter
@@ -214,6 +219,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\TuringCommandList.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\TuringSimulator.CPP.Core.cpp"
 				>
 			</File>
@@ -233,6 +242,10 @@
 			</File>
 			<File
 				RelativePath=".\TuringCommand.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TuringCommandList.h"
 				>
 			</File>
 			<File

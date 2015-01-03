@@ -1,7 +1,16 @@
 #pragma once
 
-ref class TuringCommand
+namespace TuringSimulator
 {
-public:
-	TuringCommand(void);
-};
+	namespace CPP
+	{
+		namespace Core
+		{
+			public ref class TuringCommand
+			{
+			public:
+				TuringCommand(void);
+			};
+		}
+	}
+}

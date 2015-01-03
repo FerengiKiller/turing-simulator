@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TuringCommand.cs" />
+    <Compile Include="TuringCommandList.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TuringSimulator.CS.Shared\TuringSimulator.CS.Shared.csproj">

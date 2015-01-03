@@ -1,6 +1,15 @@
 #include "StdAfx.h"
 #include "TuringCommand.h"
 
-TuringCommand::TuringCommand(void)
+namespace TuringSimulator
 {
+	namespace CPP
+	{
+		namespace Core
+		{
+			TuringCommand::TuringCommand(void)
+			{
+			}
+		}
+	}
 }
