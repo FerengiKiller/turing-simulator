@@ -7,7 +7,7 @@
 	using System.Text;
 	using Shared;
 
-	public class TuringCommandList : List<TuringCommand>, ITuringCommandList
+	public class TuringCommandList : List<ITuringCommand>, ITuringCommandList<ITuringCommand>
 	{
 		public void LoadFromFile(string filename)
 		{

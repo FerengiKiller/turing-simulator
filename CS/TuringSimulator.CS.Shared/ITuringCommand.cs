@@ -19,13 +19,13 @@
 
 	public interface ITuringCommand
 	{
-		int Line { get; set; }
+		System.Int32 Line { get; set; }
 
-		int Z0 { get; set; }
+		System.Int32 Z0 { get; set; }
 
 		char GZ { get; set; }
 
-		int Z1 { get; set; }
+		System.Int32 Z1 { get; set; }
 
 		char SZ { get; set; }
 
