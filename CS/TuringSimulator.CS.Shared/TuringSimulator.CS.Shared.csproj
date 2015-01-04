@@ -52,6 +52,7 @@
     </Compile>
     <Compile Include="ITuringCommand.cs" />
     <Compile Include="ITuringCommandList.cs" />
+    <Compile Include="ITuringLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

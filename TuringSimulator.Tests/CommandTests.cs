@@ -1,5 +1,8 @@
 ﻿namespace TuringSimulator.Tests
 {
+	using System;
+	using System.Reflection;
+	using CS.Core;
 	using CS.Shared;
 	using NUnit.Framework;
 
@@ -22,9 +25,59 @@
 			this.LoadAndValidate(commandList);
 		}
 
+		[Test]
+		public void ExecuteCS()
+		{
+			var commandList = new CS.Core.TuringCommandList();
+			commandList.LoadFromFile(@"..\..\..\_Resources\InverseInput.tur");
+			var logic = new TuringLogic();
+			logic.Initialize(commandList, "0110#");
+			logic.Start();
+			Assert.AreEqual("1001#", logic.Tape);
+		}
+
+		[Test]
+		public void StepCS()
+		{
+			var commandList = new CS.Core.TuringCommandList();
+			commandList.LoadFromFile(@"..\..\..\_Resources\InverseInput.tur");
+			var logic = new TuringLogic();
+			logic.Initialize(commandList, "0110#");
+			Assert.AreEqual(MovementValues.Undefined, logic.NextMove);
+			
+			logic.Step();
+			Assert.AreEqual(0, logic.Position);
+			Assert.AreEqual('1', logic.CurrentTapeChar);
+			Assert.AreEqual(MovementValues.R, logic.NextMove);
+			Assert.AreEqual(false, logic.Terminated);
+
+			logic.Step();
+			Assert.AreEqual(1, logic.Position);
+			Assert.AreEqual('0', logic.CurrentTapeChar);
+			Assert.AreEqual(false, logic.Terminated);
+
+			logic.Step();
+			Assert.AreEqual(2, logic.Position);
+			Assert.AreEqual('0', logic.CurrentTapeChar);
+			Assert.AreEqual(false, logic.Terminated);
+
+			logic.Step();
+			Assert.AreEqual(3, logic.Position);
+			Assert.AreEqual('1', logic.CurrentTapeChar);
+			Assert.AreEqual(false, logic.Terminated);
+
+			logic.Step();
+			Assert.AreEqual(4, logic.Position);
+			Assert.AreEqual(false, logic.Terminated);
+			Assert.AreEqual("1001#", logic.Tape);
+
+			logic.Step();
+			Assert.AreEqual(true, logic.Terminated);
+		}
+
 		/// <summary>Überprüft die Lade- bzw. Parseroutinen von ITuringCommandList bzw. ITuringCommand</summary>
 		/// <param name="commandList"></param>
-		private void LoadAndValidate(ITuringCommandList<ITuringCommand> commandList)
+		private void LoadAndValidate(ITuringCommandList commandList)
 		{
 			// Vordefinierte Testdatei mit drei Datensätzen laden
 			commandList.LoadFromFile(@"..\..\..\_Resources\InverseInput.tur");

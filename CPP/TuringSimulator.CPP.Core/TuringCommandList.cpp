@@ -24,3 +24,8 @@ void TuringCommandList::LoadFromFile(System::String ^filename)
 		throw;
 	}
 }
+
+CsShared::ITuringCommand^ TuringCommandList::SelectCommand(int state, wchar_t input)
+{
+	throw gcnew NotImplementedException();
+}

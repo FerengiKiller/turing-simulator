@@ -7,7 +7,7 @@
 	using System.Text;
 	using Shared;
 
-	public class TuringCommandList : List<ITuringCommand>, ITuringCommandList<ITuringCommand>
+	public class TuringCommandList : List<ITuringCommand>, ITuringCommandList
 	{
 		public void LoadFromFile(string filename)
 		{
@@ -27,6 +27,11 @@
 				this.Clear();
 				throw;
 			}
+		}
+
+		public ITuringCommand SelectCommand(int state, char input)
+		{
+			return this.SingleOrDefault(x => x.Z0 == state && x.GZ == input);
 		}
 	}
 }

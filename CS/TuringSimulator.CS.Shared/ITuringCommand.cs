@@ -2,11 +2,13 @@
 {
 	public static class Constants
 	{
-		private static char Terminate = '#';
+		public static char Terminate = '#';
 	}
 
 	public enum MovementValues
 	{
+		Undefined = -1,
+
 		/// <summary>Stop</summary>
 		S = 0,
 

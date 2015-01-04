@@ -5,12 +5,14 @@
 	using System.Linq;
 	using System.Text;
 
-	public interface ITuringCommandList<T>
+	public interface ITuringCommandList
 	{
 		int Count { get; }
 
-		T this[Int32 index] { get; set; }
+		ITuringCommand this[Int32 index] { get; set; }
 
 		void LoadFromFile(string filename);
+
+		ITuringCommand SelectCommand(int state, char input);
 	}
 }

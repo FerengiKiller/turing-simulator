@@ -12,12 +12,14 @@ namespace TuringSimulator
 	{
 		namespace Core
 		{
-			public ref class TuringCommandList : public List<CsShared::ITuringCommand^>, public CsShared::ITuringCommandList<CsShared::ITuringCommand^>
+			public ref class TuringCommandList : public List<CsShared::ITuringCommand^>, public CsShared::ITuringCommandList
 			{
 			public:
 				TuringCommandList(void);
 
 				virtual void LoadFromFile(System::String ^filename);
+
+				virtual CsShared::ITuringCommand^ SelectCommand(int state, wchar_t input);
 			};
 		}
 	}
