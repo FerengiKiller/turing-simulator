@@ -9,7 +9,7 @@
 
 	public class TuringLogic : ITuringLogic
 	{
-		private int position;
+		private int tapePosition;
 
 		private int currentState; // MZ - Maschinenzustand
 
@@ -19,9 +19,9 @@
 
 		public char[] Tape { get; private set; }
 
-		public int Position
+		public int TapePosition
 		{
-			get { return this.position; }
+			get { return this.tapePosition; }
 		}
 
 		public MovementValues NextMove
@@ -31,7 +31,7 @@
 
 		public char CurrentTapeChar
 		{
-			get { return this.Tape[this.Position]; }	
+			get { return this.Tape[this.TapePosition]; }	
 		}
 
 		public bool Terminated { get; private set; }
@@ -40,7 +40,7 @@
 		{
 			this.CommandList = turingCommandList;
 			this.Tape = inputString.ToCharArray();
-			this.position = 0;
+			this.tapePosition = 0;
 			this.Terminated = false;
 			this.nextMove = MovementValues.Undefined;
 		}
@@ -57,7 +57,7 @@
 
 		public bool Step()
 		{
-			Debug.WriteLine(string.Format("Pre-Step : Pos: {0} | char: {1} | nMov: {2} | Tape: {3}", this.position, this.CurrentTapeChar, this.nextMove, this.Tape.Length < 50 ? new string(this.Tape) : "Tape zu lang (> 50)"));
+			Debug.WriteLine(string.Format("Pre-Step : Pos: {0} | char: {1} | nMov: {2} | Tape: {3}", this.TapePosition, this.CurrentTapeChar, this.nextMove, this.Tape.Length < 50 ? new string(this.Tape) : "Tape zu lang (> 50)"));
 			
 			switch ( this.nextMove )
 			{
@@ -65,10 +65,10 @@
 					this.Terminated = true;
 					return false;
 				case MovementValues.R:
-					this.position++;
+					this.tapePosition++;
 					break;
 				case MovementValues.L:
-					this.position--;
+					this.tapePosition--;
 					break;
 				case MovementValues.Undefined:
 					break;
@@ -82,16 +82,16 @@
 			
 			// Zeichen auf Tape ggfls. ersetzen lt. Anweisung
 			if ( command.SZ != '#' )
-				this.Tape[this.position] = command.SZ;
+				this.Tape[this.TapePosition] = command.SZ;
 
 			this.nextMove = command.MOV;
-			Debug.WriteLine(string.Format("Post-Step: Pos: {0} | char: {1} -> {2} | Mov: {3} | Tape: {4}", this.position, tempChar, this.CurrentTapeChar, command.MOV, this.Tape.Length < 50 ? new string(this.Tape) : "Tape zu lang (> 50)"));
+			Debug.WriteLine(string.Format("Post-Step: Pos: {0} | char: {1} -> {2} | Mov: {3} | Tape: {4}", this.TapePosition, tempChar, this.CurrentTapeChar, command.MOV, this.Tape.Length < 50 ? new string(this.Tape) : "Tape zu lang (> 50)"));
 			return true;
 		}
 
 		public void Reset()
 		{
-			this.position = 0;
+			this.tapePosition = 0;
 			this.Terminated = false;
 			this.Tape = null;
 			this.nextMove = MovementValues.Undefined;

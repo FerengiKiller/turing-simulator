@@ -6,7 +6,9 @@
 	{
 		ITuringCommandList CommandList { get; }
 
-		int Position { get; }
+		char[] Tape { get; }
+
+		int TapePosition { get; }
 
 		MovementValues NextMove { get; }
 

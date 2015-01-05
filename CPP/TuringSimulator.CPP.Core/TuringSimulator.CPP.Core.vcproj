@@ -223,6 +223,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\TuringLogic.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\TuringSimulator.CPP.Core.cpp"
 				>
 			</File>
@@ -246,6 +250,10 @@
 			</File>
 			<File
 				RelativePath=".\TuringCommandList.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TuringLogic.h"
 				>
 			</File>
 			<File

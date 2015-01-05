@@ -46,28 +46,28 @@
 			Assert.AreEqual(MovementValues.Undefined, logic.NextMove);
 			
 			logic.Step();
-			Assert.AreEqual(0, logic.Position);
+			Assert.AreEqual(0, logic.TapePosition);
 			Assert.AreEqual('1', logic.CurrentTapeChar);
 			Assert.AreEqual(MovementValues.R, logic.NextMove);
 			Assert.AreEqual(false, logic.Terminated);
 
 			logic.Step();
-			Assert.AreEqual(1, logic.Position);
+			Assert.AreEqual(1, logic.TapePosition);
 			Assert.AreEqual('0', logic.CurrentTapeChar);
 			Assert.AreEqual(false, logic.Terminated);
 
 			logic.Step();
-			Assert.AreEqual(2, logic.Position);
+			Assert.AreEqual(2, logic.TapePosition);
 			Assert.AreEqual('0', logic.CurrentTapeChar);
 			Assert.AreEqual(false, logic.Terminated);
 
 			logic.Step();
-			Assert.AreEqual(3, logic.Position);
+			Assert.AreEqual(3, logic.TapePosition);
 			Assert.AreEqual('1', logic.CurrentTapeChar);
 			Assert.AreEqual(false, logic.Terminated);
 
 			logic.Step();
-			Assert.AreEqual(4, logic.Position);
+			Assert.AreEqual(4, logic.TapePosition);
 			Assert.AreEqual(false, logic.Terminated);
 			Assert.AreEqual("1001#", logic.Tape);
 
