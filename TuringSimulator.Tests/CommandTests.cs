@@ -26,9 +26,35 @@
 		}
 
 		[Test]
-		public void ExecuteCS()
+		public void TestStartCS()
 		{
 			var commandList = new CS.Core.TuringCommandList();
+			this.TestStart(commandList);
+		}
+
+		[Test]
+		public void TestStartCPP()
+		{
+			var commandList = new CPP.Core.TuringCommandList();
+			this.TestStart(commandList);
+		}
+
+		[Test]
+		public void StepCS()
+		{
+			var commandList = new CS.Core.TuringCommandList();
+			this.Step(commandList);
+		}
+
+		[Test]
+		public void StepCPP()
+		{
+			var commandList = new CPP.Core.TuringCommandList();
+			this.Step(commandList);
+		}
+
+		private void TestStart(ITuringCommandList commandList)
+		{
 			commandList.LoadFromFile(@"..\..\..\_Resources\InverseInput.tur");
 			var logic = new TuringLogic();
 			logic.Initialize(commandList, "0110#");
@@ -36,15 +62,13 @@
 			Assert.AreEqual("1001#", logic.Tape);
 		}
 
-		[Test]
-		public void StepCS()
+		private void Step(ITuringCommandList commandList)
 		{
-			var commandList = new CS.Core.TuringCommandList();
 			commandList.LoadFromFile(@"..\..\..\_Resources\InverseInput.tur");
 			var logic = new TuringLogic();
 			logic.Initialize(commandList, "0110#");
 			Assert.AreEqual(MovementValues.Undefined, logic.NextMove);
-			
+
 			logic.Step();
 			Assert.AreEqual(0, logic.TapePosition);
 			Assert.AreEqual('1', logic.CurrentTapeChar);

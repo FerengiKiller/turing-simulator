@@ -1,11 +1,13 @@
 #include "StdAfx.h"
 #include "TuringCommandList.h"
 
-TuringCommandList::TuringCommandList(void)
+
+
+TuringSimulator::CPP::Core::TuringCommandList::TuringCommandList(void)
 {
 }
 
-void TuringCommandList::LoadFromFile(System::String ^filename)
+void TuringSimulator::CPP::Core::TuringCommandList::LoadFromFile(System::String ^filename)
 {
 	this->Clear();
 	
@@ -25,7 +27,13 @@ void TuringCommandList::LoadFromFile(System::String ^filename)
 	}
 }
 
-CsShared::ITuringCommand^ TuringCommandList::SelectCommand(int state, wchar_t input)
+CsShared::ITuringCommand^ TuringSimulator::CPP::Core::TuringCommandList::SelectCommand(int state, wchar_t input)
 {
-	throw gcnew NotImplementedException();
+	for each ( CsShared::ITuringCommand ^ command in this )
+	{
+		if ( command->Z0 == state && command->GZ == input )
+			return command;
+	}
+
+	return nullptr;
 }

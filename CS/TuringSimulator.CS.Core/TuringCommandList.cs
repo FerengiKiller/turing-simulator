@@ -7,6 +7,10 @@
 	using System.Text;
 	using Shared;
 
+	/// <summary>Implementiert eine Liste von ITuringCommands</summary>
+	/// <remarks>
+	/// Keine Prüfung auf mehrere, identische Steps (keine wirkliche Einschränkung)
+	/// </remarks>
 	public class TuringCommandList : List<ITuringCommand>, ITuringCommandList
 	{
 		public void LoadFromFile(string filename)
@@ -31,7 +35,7 @@
 
 		public ITuringCommand SelectCommand(int state, char input)
 		{
-			return this.SingleOrDefault(x => x.Z0 == state && x.GZ == input);
+			return this.FirstOrDefault(x => x.Z0 == state && x.GZ == input);
 		}
 	}
 }

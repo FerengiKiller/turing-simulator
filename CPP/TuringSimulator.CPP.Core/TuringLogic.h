@@ -3,6 +3,8 @@
 /// * Das Speicherband (TuringLogic->Tape) ist nicht unendlich lang in beide Richtungen
 
 #pragma once
+using namespace System;
+using namespace System::Diagnostics;
 namespace CsShared = TuringSimulator::CS::Shared;
 
 namespace TuringSimulator
@@ -19,6 +21,7 @@ namespace TuringSimulator
 				int tapePosition;
 				CsShared::MovementValues nextMove;
 				bool terminated;
+				int currentState; // MZ - Maschinenzustand
 				
 			public:
 				TuringLogic(void);
