@@ -15,6 +15,8 @@
 
 		private MovementValues nextMove;
 
+		public event EventHandler AfterStateChanged;
+
 		public ITuringCommandList CommandList { get; private set; }
 
 		public char[] Tape { get; private set; }
@@ -31,7 +33,7 @@
 
 		public char CurrentTapeChar
 		{
-			get { return this.Tape[this.TapePosition]; }	
+			get { return this.Tape[this.TapePosition]; }
 		}
 
 		public bool Terminated { get; private set; }
@@ -43,6 +45,14 @@
 			this.tapePosition = 0;
 			this.Terminated = false;
 			this.nextMove = MovementValues.Undefined;
+			if ( this.AfterStateChanged != null )
+				this.AfterStateChanged(null, null);
+		}
+
+		public void Load(string filename, string inputString)
+		{
+			var turingCommandList = new TuringCommandList().LoadFromFile(filename);
+			this.Initialize(turingCommandList, inputString);
 		}
 
 		public void Start()
@@ -58,7 +68,7 @@
 		public bool Step()
 		{
 			Debug.WriteLine(string.Format("Pre-Step : Pos: {0} | char: {1} | nMov: {2} | Tape: {3}", this.TapePosition, this.CurrentTapeChar, this.nextMove, this.Tape.Length < 50 ? new string(this.Tape) : "Tape zu lang (> 50)"));
-			
+
 			switch ( this.nextMove )
 			{
 				case MovementValues.S:
@@ -79,13 +89,17 @@
 			var tempChar = this.CurrentTapeChar;
 			var command = this.CommandList.SelectCommand(this.currentState, tempChar);
 			this.currentState = command.Z1;
-			
+
 			// Zeichen auf Tape ggfls. ersetzen lt. Anweisung
 			if ( command.SZ != '#' )
 				this.Tape[this.TapePosition] = command.SZ;
 
 			this.nextMove = command.MOV;
 			Debug.WriteLine(string.Format("Post-Step: Pos: {0} | char: {1} -> {2} | Mov: {3} | Tape: {4}", this.TapePosition, tempChar, this.CurrentTapeChar, command.MOV, this.Tape.Length < 50 ? new string(this.Tape) : "Tape zu lang (> 50)"));
+
+			if ( this.AfterStateChanged != null )
+				this.AfterStateChanged(null, null);
+
 			return true;
 		}
 
@@ -95,6 +109,9 @@
 			this.Terminated = false;
 			this.Tape = null;
 			this.nextMove = MovementValues.Undefined;
+
+			if ( this.AfterStateChanged != null )
+				this.AfterStateChanged(null, null);
 		}
 	}
 }

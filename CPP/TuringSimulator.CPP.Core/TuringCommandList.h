@@ -21,7 +21,7 @@ namespace TuringSimulator
 			public:
 				TuringCommandList(void);
 
-				virtual void LoadFromFile(System::String ^filename);
+				virtual CsShared::ITuringCommandList ^ LoadFromFile(System::String ^filename);
 
 				virtual CsShared::ITuringCommand^ SelectCommand(int state, wchar_t input);
 			};

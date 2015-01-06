@@ -22,9 +22,16 @@ namespace TuringSimulator
 				CsShared::MovementValues nextMove;
 				bool terminated;
 				int currentState; // MZ - Maschinenzustand
+				EventHandler ^ afterStateChanged;
 				
 			public:
 				TuringLogic(void);
+
+				virtual event EventHandler ^ AfterStateChanged
+				{
+					void add(EventHandler ^ handler) { this->afterStateChanged += handler; }
+					void remove(EventHandler ^ handler) { this->afterStateChanged -= handler; }
+				}
 
 				virtual property CsShared::ITuringCommandList^ CommandList
 				{
@@ -60,6 +67,8 @@ namespace TuringSimulator
 				}
 
 				virtual void Initialize(CsShared::ITuringCommandList ^ turingCommandList, System::String ^ inputString);
+
+				virtual void Load(System::String ^ filename, System::String ^ inputString);
 
 				virtual void Start();
 

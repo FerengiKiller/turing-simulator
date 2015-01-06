@@ -13,7 +13,7 @@
 	/// </remarks>
 	public class TuringCommandList : List<ITuringCommand>, ITuringCommandList
 	{
-		public void LoadFromFile(string filename)
+		public ITuringCommandList LoadFromFile(string filename)
 		{
 			this.Clear();
 
@@ -31,6 +31,8 @@
 				this.Clear();
 				throw;
 			}
+
+			return this;
 		}
 
 		public ITuringCommand SelectCommand(int state, char input)

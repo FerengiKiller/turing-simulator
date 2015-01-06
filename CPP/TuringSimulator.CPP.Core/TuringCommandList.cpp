@@ -1,13 +1,19 @@
 #include "StdAfx.h"
 #include "TuringCommandList.h"
 
+namespace TuringSimulator
+{
+	namespace CPP
+	{
+		namespace Core
+		{
 
 
-TuringSimulator::CPP::Core::TuringCommandList::TuringCommandList(void)
+TuringCommandList::TuringCommandList(void)
 {
 }
 
-void TuringSimulator::CPP::Core::TuringCommandList::LoadFromFile(System::String ^filename)
+CsShared::ITuringCommandList ^ TuringCommandList::LoadFromFile(System::String ^filename)
 {
 	this->Clear();
 	
@@ -25,9 +31,11 @@ void TuringSimulator::CPP::Core::TuringCommandList::LoadFromFile(System::String 
 		this->Clear();
 		throw;
 	}
+
+	return this;
 }
 
-CsShared::ITuringCommand^ TuringSimulator::CPP::Core::TuringCommandList::SelectCommand(int state, wchar_t input)
+CsShared::ITuringCommand^ TuringCommandList::SelectCommand(int state, wchar_t input)
 {
 	for each ( CsShared::ITuringCommand ^ command in this )
 	{
@@ -36,4 +44,8 @@ CsShared::ITuringCommand^ TuringSimulator::CPP::Core::TuringCommandList::SelectC
 	}
 
 	return nullptr;
+}
+
+		}
+	}
 }

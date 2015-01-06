@@ -28,45 +28,37 @@
 		[Test]
 		public void TestStartCS()
 		{
-			var commandList = new CS.Core.TuringCommandList();
-			this.TestStart(commandList);
+			this.TestStart(new CS.Core.TuringLogic());
 		}
 
 		[Test]
 		public void TestStartCPP()
 		{
-			var commandList = new CPP.Core.TuringCommandList();
-			this.TestStart(commandList);
+			this.TestStart(new CPP.Core.TuringLogic());
 		}
 
 		[Test]
 		public void StepCS()
 		{
-			var commandList = new CS.Core.TuringCommandList();
-			this.Step(commandList);
+			this.Step(new CS.Core.TuringLogic());
 		}
 
 		[Test]
 		public void StepCPP()
 		{
-			var commandList = new CPP.Core.TuringCommandList();
-			this.Step(commandList);
+			this.Step(new CPP.Core.TuringLogic());
 		}
 
-		private void TestStart(ITuringCommandList commandList)
+		private void TestStart(ITuringLogic logic)
 		{
-			commandList.LoadFromFile(@"..\..\..\_Resources\InverseInput.tur");
-			var logic = new TuringLogic();
-			logic.Initialize(commandList, "0110#");
+			logic.Load(@"..\..\..\_Resources\InverseInput.tur", "0110#");
 			logic.Start();
 			Assert.AreEqual("1001#", logic.Tape);
 		}
 
-		private void Step(ITuringCommandList commandList)
+		private void Step(ITuringLogic logic)
 		{
-			commandList.LoadFromFile(@"..\..\..\_Resources\InverseInput.tur");
-			var logic = new TuringLogic();
-			logic.Initialize(commandList, "0110#");
+			logic.Load(@"..\..\..\_Resources\InverseInput.tur", "0110#");
 			Assert.AreEqual(MovementValues.Undefined, logic.NextMove);
 
 			logic.Step();

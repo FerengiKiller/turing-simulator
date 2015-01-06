@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "TuringLogic.h"
+#include "TuringCommandList.h"
 
 namespace TuringSimulator
 {
@@ -18,6 +19,14 @@ namespace TuringSimulator
 				this->tapePosition = 0;
 				this->terminated = false;
 				this->nextMove = CsShared::MovementValues::Undefined;
+
+				this->afterStateChanged(nullptr, nullptr);
+			}
+
+			void TuringLogic::Load(System::String ^ filename, System::String ^ inputString)
+			{
+				CsShared::ITuringCommandList ^ turingCommandList = gcnew TuringCommandList();
+				this->Initialize(turingCommandList->LoadFromFile(filename), inputString);
 			}
 			
 			void TuringLogic::Start(void)
@@ -61,6 +70,9 @@ namespace TuringSimulator
 				
 				this->nextMove = command->MOV;
 				Debug::WriteLine(String::Format("Post-Step: Pos: {0} | char: {1} -> {2} | Mov: {3} | Tape: {4}", this->TapePosition, tempChar, this->CurrentTapeChar, command->MOV, this->Tape->Length < 50 ? gcnew String(this->Tape) : "Tape zu lang (> 50)"));
+
+				this->afterStateChanged(nullptr, nullptr);
+
 				return true;			
 			}
 			
@@ -70,6 +82,7 @@ namespace TuringSimulator
 				this->terminated = false;
 				this->tape = nullptr;
 				this->nextMove = CsShared::MovementValues::Undefined;
+				this->afterStateChanged(nullptr, nullptr);
 			}
 		}
 	}

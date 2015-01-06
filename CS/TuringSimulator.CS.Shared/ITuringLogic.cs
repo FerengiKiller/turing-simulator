@@ -6,6 +6,8 @@
 	{
 		ITuringCommandList CommandList { get; }
 
+		event EventHandler AfterStateChanged;
+
 		char[] Tape { get; }
 
 		int TapePosition { get; }
@@ -17,6 +19,8 @@
 		bool Terminated { get; }
 
 		void Initialize(ITuringCommandList turingCommandList, string inputString);
+
+		void Load(string filename, string inputString);
 
 		void Start();
 

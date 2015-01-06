@@ -11,7 +11,7 @@
 
 		ITuringCommand this[Int32 index] { get; set; }
 
-		void LoadFromFile(string filename);
+		ITuringCommandList LoadFromFile(string filename);
 
 		ITuringCommand SelectCommand(int state, char input);
 	}

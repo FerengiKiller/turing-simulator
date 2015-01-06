@@ -12,11 +12,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuringSimulator.Tests", "TuringSimulator.Tests\TuringSimulator.Tests.csproj", "{46D4D71B-D9A8-4D6A-BFB6-95FFB0A44827}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D145DCF-7F21-459D-9C5F-E6DCF8151F47}"
-	ProjectSection(SolutionItems) = preProject
-		ITuringCommand.cs = ITuringCommand.cs
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuringSimulator.CS.Shared", "CS\TuringSimulator.CS.Shared\TuringSimulator.CS.Shared.csproj", "{F52F6EB5-3BDA-4A1F-B894-5B8AEF74FB25}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TuringSimulator.CPP.GUI", "CPP\TuringSimulator.CPP.GUI\TuringSimulator.CPP.GUI.vcproj", "{9B43AB62-AE32-4810-A3CE-B0277203F331}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,12 +67,23 @@ Global
 		{F52F6EB5-3BDA-4A1F-B894-5B8AEF74FB25}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F52F6EB5-3BDA-4A1F-B894-5B8AEF74FB25}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F52F6EB5-3BDA-4A1F-B894-5B8AEF74FB25}.Release|Win32.ActiveCfg = Release|Any CPU
+		{9B43AB62-AE32-4810-A3CE-B0277203F331}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{9B43AB62-AE32-4810-A3CE-B0277203F331}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{9B43AB62-AE32-4810-A3CE-B0277203F331}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{9B43AB62-AE32-4810-A3CE-B0277203F331}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9B43AB62-AE32-4810-A3CE-B0277203F331}.Debug|Win32.Build.0 = Debug|Win32
+		{9B43AB62-AE32-4810-A3CE-B0277203F331}.Release|Any CPU.ActiveCfg = Release|Win32
+		{9B43AB62-AE32-4810-A3CE-B0277203F331}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{9B43AB62-AE32-4810-A3CE-B0277203F331}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{9B43AB62-AE32-4810-A3CE-B0277203F331}.Release|Win32.ActiveCfg = Release|Win32
+		{9B43AB62-AE32-4810-A3CE-B0277203F331}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D1A50EEA-5D9C-46DC-9BEC-EE8C6C1D6926} = {231A206D-07F2-4C86-811E-AC5B0487E2FD}
+		{9B43AB62-AE32-4810-A3CE-B0277203F331} = {231A206D-07F2-4C86-811E-AC5B0487E2FD}
 		{294A617F-44BB-4707-8D1C-91D8989E80A9} = {4138FDCD-A2CC-4229-A7F8-11B72AA47974}
 		{F52F6EB5-3BDA-4A1F-B894-5B8AEF74FB25} = {4138FDCD-A2CC-4229-A7F8-11B72AA47974}
 	EndGlobalSection
