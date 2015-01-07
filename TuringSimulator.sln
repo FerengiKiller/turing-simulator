@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuringSimulator.CS.Shared",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TuringSimulator.CPP.GUI", "CPP\TuringSimulator.CPP.GUI\TuringSimulator.CPP.GUI.vcproj", "{9B43AB62-AE32-4810-A3CE-B0277203F331}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TuringSimulator.CPP.Shared", "CPP\TuringSimulator.CPP.Shared\TuringSimulator.CPP.Shared.vcproj", "{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,7 @@ Global
 		{294A617F-44BB-4707-8D1C-91D8989E80A9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{294A617F-44BB-4707-8D1C-91D8989E80A9}.Release|Win32.ActiveCfg = Release|Any CPU
 		{D1A50EEA-5D9C-46DC-9BEC-EE8C6C1D6926}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{D1A50EEA-5D9C-46DC-9BEC-EE8C6C1D6926}.Debug|Any CPU.Build.0 = Debug|Win32
 		{D1A50EEA-5D9C-46DC-9BEC-EE8C6C1D6926}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{D1A50EEA-5D9C-46DC-9BEC-EE8C6C1D6926}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{D1A50EEA-5D9C-46DC-9BEC-EE8C6C1D6926}.Debug|Win32.ActiveCfg = Debug|Win32
@@ -68,6 +71,7 @@ Global
 		{F52F6EB5-3BDA-4A1F-B894-5B8AEF74FB25}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F52F6EB5-3BDA-4A1F-B894-5B8AEF74FB25}.Release|Win32.ActiveCfg = Release|Any CPU
 		{9B43AB62-AE32-4810-A3CE-B0277203F331}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{9B43AB62-AE32-4810-A3CE-B0277203F331}.Debug|Any CPU.Build.0 = Debug|Win32
 		{9B43AB62-AE32-4810-A3CE-B0277203F331}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{9B43AB62-AE32-4810-A3CE-B0277203F331}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{9B43AB62-AE32-4810-A3CE-B0277203F331}.Debug|Win32.ActiveCfg = Debug|Win32
@@ -77,6 +81,17 @@ Global
 		{9B43AB62-AE32-4810-A3CE-B0277203F331}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{9B43AB62-AE32-4810-A3CE-B0277203F331}.Release|Win32.ActiveCfg = Release|Win32
 		{9B43AB62-AE32-4810-A3CE-B0277203F331}.Release|Win32.Build.0 = Release|Win32
+		{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A}.Debug|Any CPU.Build.0 = Debug|Win32
+		{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A}.Debug|Win32.Build.0 = Debug|Win32
+		{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A}.Release|Any CPU.ActiveCfg = Release|Win32
+		{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A}.Release|Win32.ActiveCfg = Release|Win32
+		{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +99,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D1A50EEA-5D9C-46DC-9BEC-EE8C6C1D6926} = {231A206D-07F2-4C86-811E-AC5B0487E2FD}
 		{9B43AB62-AE32-4810-A3CE-B0277203F331} = {231A206D-07F2-4C86-811E-AC5B0487E2FD}
+		{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A} = {231A206D-07F2-4C86-811E-AC5B0487E2FD}
 		{294A617F-44BB-4707-8D1C-91D8989E80A9} = {4138FDCD-A2CC-4229-A7F8-11B72AA47974}
 		{F52F6EB5-3BDA-4A1F-B894-5B8AEF74FB25} = {4138FDCD-A2CC-4229-A7F8-11B72AA47974}
 	EndGlobalSection

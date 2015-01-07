@@ -174,14 +174,14 @@
 			AssemblyName="System.Xml, Version=2.0.0.0, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
-		<ProjectReference
-			ReferencedProjectIdentifier="{F52F6EB5-3BDA-4A1F-B894-5B8AEF74FB25}"
-			RelativePathToProject=".\CS\TuringSimulator.CS.Shared\TuringSimulator.CS.Shared.csproj"
-		/>
 		<AssemblyReference
 			RelativePath="System.Windows.Forms.dll"
 			AssemblyName="System.Windows.Forms, Version=2.0.0.0, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
+		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A}"
+			RelativePathToProject=".\CPP\TuringSimulator.CPP.Shared\TuringSimulator.CPP.Shared.vcproj"
 		/>
 	</References>
 	<Files>
@@ -226,10 +226,6 @@
 				RelativePath=".\TuringLogic.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\TuringSimulator.CPP.Core.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -254,10 +250,6 @@
 			</File>
 			<File
 				RelativePath=".\TuringLogic.h"
-				>
-			</File>
-			<File
-				RelativePath=".\TuringSimulator.CPP.Core.h"
 				>
 			</File>
 		</Filter>

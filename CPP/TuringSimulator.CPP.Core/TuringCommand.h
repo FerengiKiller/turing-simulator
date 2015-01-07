@@ -6,7 +6,7 @@ namespace TuringSimulator
 	{
 		namespace Core
 		{
-			public ref class TuringCommand : public TuringSimulator::CS::Shared::ITuringCommand
+			public ref class TuringCommand : public TuringSimulator::CPP::Shared::ITuringCommand
 			{
 			private:
 				System::Int32 line;
@@ -14,7 +14,7 @@ namespace TuringSimulator
 				wchar_t gz;
 				System::Int32 z1;
 				wchar_t sz;
-				TuringSimulator::CS::Shared::MovementValues mov;
+				TuringSimulator::CPP::Shared::MovementValues mov;
 
 			public:
 				TuringCommand(System::String^ rawLine);
@@ -49,10 +49,10 @@ namespace TuringSimulator
 					void set(wchar_t value) { this->sz = value; };
 				}
 
-				virtual property TuringSimulator::CS::Shared::MovementValues MOV
+				virtual property TuringSimulator::CPP::Shared::MovementValues MOV
 				{
-					TuringSimulator::CS::Shared::MovementValues get() { return this->mov; };
-					void set(TuringSimulator::CS::Shared::MovementValues value) { this->mov = value; };
+					TuringSimulator::CPP::Shared::MovementValues get() { return this->mov; };
+					void set(TuringSimulator::CPP::Shared::MovementValues value) { this->mov = value; };
 				}
 			};
 		}

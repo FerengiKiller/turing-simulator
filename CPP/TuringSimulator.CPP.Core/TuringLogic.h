@@ -5,7 +5,7 @@
 #pragma once
 using namespace System;
 using namespace System::Diagnostics;
-namespace CsShared = TuringSimulator::CS::Shared;
+namespace CppShared = TuringSimulator::CPP::Shared;
 
 namespace TuringSimulator
 {
@@ -13,32 +13,32 @@ namespace TuringSimulator
 	{
 		namespace Core
 		{
-			public ref class TuringLogic : public CsShared::ITuringLogic
+			public ref class TuringLogic : public CppShared::ITuringLogic
 			{
 			private:
-				CsShared::ITuringCommandList^ commandList;
+				CppShared::ITuringCommandList^ commandList;
 				cli::array<wchar_t>^ tape;
 				int tapePosition;
-				CsShared::MovementValues nextMove;
+				CppShared::MovementValues nextMove;
 				bool terminated;
+				bool ready;
 				int currentState; // MZ - Maschinenzustand
 				EventHandler ^ afterStateChanged;
+				void RaiseAfterStateChanged();
 				
 			public:
-				TuringLogic(void);
-
 				virtual event EventHandler ^ AfterStateChanged
 				{
 					void add(EventHandler ^ handler) { this->afterStateChanged += handler; }
 					void remove(EventHandler ^ handler) { this->afterStateChanged -= handler; }
 				}
 
-				virtual property CsShared::ITuringCommandList^ CommandList
+				virtual property CppShared::ITuringCommandList^ CommandList
 				{
-					CsShared::ITuringCommandList^ get() { return this->commandList; };
+					CppShared::ITuringCommandList^ get() { return this->commandList; };
 
 				private: 
-					void set(CsShared::ITuringCommandList^ value) { this->commandList = value; };
+					void set(CppShared::ITuringCommandList^ value) { this->commandList = value; };
 				}
 
 				virtual property cli::array<wchar_t>^ Tape
@@ -51,9 +51,9 @@ namespace TuringSimulator
 					int get() { return this->tapePosition; }
 				}
 
-				virtual property CsShared::MovementValues NextMove
+				virtual property CppShared::MovementValues NextMove
 				{
-					CsShared::MovementValues get() { return this->nextMove; };
+					CppShared::MovementValues get() { return this->nextMove; };
 				}
 
 				virtual property wchar_t CurrentTapeChar
@@ -66,7 +66,12 @@ namespace TuringSimulator
 					bool get() { return this->terminated; }
 				}
 
-				virtual void Initialize(CsShared::ITuringCommandList ^ turingCommandList, System::String ^ inputString);
+				virtual property bool Ready
+				{
+					bool get() { return this->ready; }
+				}
+
+				virtual void Initialize(CppShared::ITuringCommandList ^ turingCommandList, System::String ^ inputString);
 
 				virtual void Load(System::String ^ filename, System::String ^ inputString);
 

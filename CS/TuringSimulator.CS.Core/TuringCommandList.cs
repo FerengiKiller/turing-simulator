@@ -5,7 +5,7 @@
 	using System.IO;
 	using System.Linq;
 	using System.Text;
-	using Shared;
+	using TuringSimulator.CPP.Shared;
 
 	/// <summary>Implementiert eine Liste von ITuringCommands</summary>
 	/// <remarks>

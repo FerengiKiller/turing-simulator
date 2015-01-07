@@ -4,9 +4,9 @@
 
 	public interface ITuringLogic
 	{
-		ITuringCommandList CommandList { get; }
-
 		event EventHandler AfterStateChanged;
+
+		ITuringCommandList CommandList { get; }
 
 		char[] Tape { get; }
 
@@ -17,6 +17,8 @@
 		char CurrentTapeChar { get; }
 
 		bool Terminated { get; }
+
+		bool Ready { get; }
 
 		void Initialize(ITuringCommandList turingCommandList, string inputString);
 

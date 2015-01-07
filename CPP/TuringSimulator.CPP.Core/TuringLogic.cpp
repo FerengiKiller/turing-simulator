@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "TuringLogic.h"
 #include "TuringCommandList.h"
+namespace CppShared = TuringSimulator::CPP::Shared;
 
 namespace TuringSimulator
 {
@@ -8,24 +9,21 @@ namespace TuringSimulator
 	{
 		namespace Core
 		{
-			TuringLogic::TuringLogic(void)
-			{
-			}
-
-			void TuringLogic::Initialize(CsShared::ITuringCommandList ^ turingCommandList, System::String ^ inputString)
+			void TuringLogic::Initialize(CppShared::ITuringCommandList ^ turingCommandList, System::String ^ inputString)
 			{
 				this->CommandList = turingCommandList;
 				this->tape = inputString->ToCharArray();
 				this->tapePosition = 0;
 				this->terminated = false;
-				this->nextMove = CsShared::MovementValues::Undefined;
+				this->nextMove = CppShared::MovementValues::Undefined;
+				this->ready = true;
 
-				this->afterStateChanged(nullptr, nullptr);
+				this->RaiseAfterStateChanged();
 			}
 
 			void TuringLogic::Load(System::String ^ filename, System::String ^ inputString)
 			{
-				CsShared::ITuringCommandList ^ turingCommandList = gcnew TuringCommandList();
+				CppShared::ITuringCommandList ^ turingCommandList = gcnew TuringCommandList();
 				this->Initialize(turingCommandList->LoadFromFile(filename), inputString);
 			}
 			
@@ -45,23 +43,24 @@ namespace TuringSimulator
 				
 				switch ( this->nextMove )
 				{						
-					case CsShared::MovementValues::S:
+					case CppShared::MovementValues::S:
 						this->terminated = true;
+						this->ready = false;
 						return false;
-					case CsShared::MovementValues::R:
+					case CppShared::MovementValues::R:
 						this->tapePosition++;
 						break;
-					case CsShared::MovementValues::L:
+					case CppShared::MovementValues::L:
 						this->tapePosition--;
 						break;
-					case CsShared::MovementValues::Undefined:
+					case CppShared::MovementValues::Undefined:
 						break;
 					default:
 						throw gcnew ArgumentOutOfRangeException();
 				}
 
 				wchar_t tempChar = this->CurrentTapeChar;
-				CsShared::ITuringCommand ^ command = this->CommandList->SelectCommand(this->currentState, tempChar);
+				CppShared::ITuringCommand ^ command = this->CommandList->SelectCommand(this->currentState, tempChar);
 				this->currentState = command->Z1;
 
 				// Zeichen auf Tape ggfls. ersetzen lt. Anweisung
@@ -71,7 +70,7 @@ namespace TuringSimulator
 				this->nextMove = command->MOV;
 				Debug::WriteLine(String::Format("Post-Step: Pos: {0} | char: {1} -> {2} | Mov: {3} | Tape: {4}", this->TapePosition, tempChar, this->CurrentTapeChar, command->MOV, this->Tape->Length < 50 ? gcnew String(this->Tape) : "Tape zu lang (> 50)"));
 
-				this->afterStateChanged(nullptr, nullptr);
+				this->RaiseAfterStateChanged();
 
 				return true;			
 			}
@@ -81,8 +80,18 @@ namespace TuringSimulator
 				this->tapePosition = 0;
 				this->terminated = false;
 				this->tape = nullptr;
-				this->nextMove = CsShared::MovementValues::Undefined;
-				this->afterStateChanged(nullptr, nullptr);
+				this->nextMove = CppShared::MovementValues::Undefined;
+				this->ready = false;
+
+				this->RaiseAfterStateChanged();
+			}
+
+			/// Prüft bzw. ruft den EventHandler für AfterStateChanged auf
+			/// 2015-01-06 SaS: Sollte an sich auch ohne den nullptr-check funktionieren, nur lässt sich das (nach meinem aktuellen C++/CLI - Wissen) nicht mit der Definition des Events im Interface vereinbaren
+			void TuringLogic::RaiseAfterStateChanged()
+			{
+				if ( this->afterStateChanged != nullptr )
+					this->afterStateChanged->Invoke(this, System::EventArgs::Empty);
 			}
 		}
 	}

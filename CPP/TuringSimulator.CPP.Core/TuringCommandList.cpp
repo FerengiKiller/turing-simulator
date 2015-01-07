@@ -13,7 +13,7 @@ TuringCommandList::TuringCommandList(void)
 {
 }
 
-CsShared::ITuringCommandList ^ TuringCommandList::LoadFromFile(System::String ^filename)
+CppShared::ITuringCommandList ^ TuringCommandList::LoadFromFile(System::String ^filename)
 {
 	this->Clear();
 	
@@ -35,9 +35,9 @@ CsShared::ITuringCommandList ^ TuringCommandList::LoadFromFile(System::String ^f
 	return this;
 }
 
-CsShared::ITuringCommand^ TuringCommandList::SelectCommand(int state, wchar_t input)
+CppShared::ITuringCommand^ TuringCommandList::SelectCommand(System::Int32 state, wchar_t input)
 {
-	for each ( CsShared::ITuringCommand ^ command in this )
+	for each ( CppShared::ITuringCommand ^ command in this )
 	{
 		if ( command->Z0 == state && command->GZ == input )
 			return command;

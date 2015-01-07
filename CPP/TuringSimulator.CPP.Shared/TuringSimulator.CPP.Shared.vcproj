@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="TuringSimulator.CPP.GUI"
-	ProjectGUID="{9B43AB62-AE32-4810-A3CE-B0277203F331}"
-	RootNamespace="TuringSimulatorCPPGUI"
+	Name="TuringSimulator.CPP.Shared"
+	ProjectGUID="{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A}"
+	RootNamespace="TuringSimulatorCPPShared"
 	Keyword="ManagedCProj"
 	TargetFrameworkVersion="196613"
 	>
@@ -20,9 +20,9 @@
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="1"
+			ConfigurationType="2"
 			CharacterSet="1"
-			ManagedExtensions="2"
+			ManagedExtensions="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -63,8 +63,6 @@
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
-				SubSystem="2"
-				EntryPointSymbol="main"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -93,9 +91,9 @@
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="1"
+			ConfigurationType="2"
 			CharacterSet="1"
-			ManagedExtensions="2"
+			ManagedExtensions="1"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -135,8 +133,6 @@
 				AdditionalDependencies="$(NoInherit)"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
-				SubSystem="2"
-				EntryPointSymbol="main"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -174,27 +170,9 @@
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
-			RelativePath="System.Drawing.dll"
-			AssemblyName="System.Drawing, Version=2.0.0.0, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-			MinFrameworkVersion="131072"
-		/>
-		<AssemblyReference
-			RelativePath="System.Windows.Forms.dll"
-			AssemblyName="System.Windows.Forms, Version=2.0.0.0, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
-			MinFrameworkVersion="131072"
-		/>
-		<AssemblyReference
 			RelativePath="System.XML.dll"
 			AssemblyName="System.Xml, Version=2.0.0.0, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
-		/>
-		<ProjectReference
-			ReferencedProjectIdentifier="{D1A50EEA-5D9C-46DC-9BEC-EE8C6C1D6926}"
-			RelativePathToProject=".\CPP\TuringSimulator.CPP.Core\TuringSimulator.CPP.Core.vcproj"
-		/>
-		<ProjectReference
-			ReferencedProjectIdentifier="{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A}"
-			RelativePathToProject=".\CPP\TuringSimulator.CPP.Shared\TuringSimulator.CPP.Shared.vcproj"
 		/>
 	</References>
 	<Files>
@@ -208,7 +186,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\stdafx.cpp"
+				RelativePath=".\Generic.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Stdafx.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -227,10 +209,6 @@
 					/>
 				</FileConfiguration>
 			</File>
-			<File
-				RelativePath=".\TuringSimulator.CPP.GUI.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -238,21 +216,31 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\Form1.h"
-				FileType="3"
+				RelativePath=".\Generic.h"
 				>
-				<File
-					RelativePath=".\Form1.resX"
-					SubType="Designer"
-					>
-				</File>
+			</File>
+			<File
+				RelativePath=".\ITuringCommand.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ITuringCommandList.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ITuringLogic.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MovementValues.h"
+				>
 			</File>
 			<File
 				RelativePath=".\resource.h"
 				>
 			</File>
 			<File
-				RelativePath=".\stdafx.h"
+				RelativePath=".\Stdafx.h"
 				>
 			</File>
 		</Filter>
@@ -269,12 +257,9 @@
 				RelativePath=".\app.rc"
 				>
 			</File>
-		</Filter>
-		<Filter
-			Name="DataSources"
-			>
 			<File
-				RelativePath=".\Form1.datasource"
+				RelativePath=".\GenericResources.resx"
+				SubType="Designer"
 				>
 			</File>
 		</Filter>

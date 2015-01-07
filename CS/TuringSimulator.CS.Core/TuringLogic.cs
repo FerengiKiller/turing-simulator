@@ -5,15 +5,20 @@
 	using System.Diagnostics;
 	using System.Linq;
 	using System.Text;
-	using Shared;
+	using TuringSimulator.CPP.Shared;
 
-	public class TuringLogic : ITuringLogic
+	public class TuringLogic : TuringSimulator.CPP.Shared.ITuringLogic
 	{
 		private int tapePosition;
 
 		private int currentState; // MZ - Maschinenzustand
 
 		private MovementValues nextMove;
+
+		public TuringLogic()
+		{
+			this.Reset();
+		}
 
 		public event EventHandler AfterStateChanged;
 
@@ -38,6 +43,8 @@
 
 		public bool Terminated { get; private set; }
 
+		public bool Ready { get; private set; }
+
 		public void Initialize(ITuringCommandList turingCommandList, string inputString)
 		{
 			this.CommandList = turingCommandList;
@@ -45,8 +52,10 @@
 			this.tapePosition = 0;
 			this.Terminated = false;
 			this.nextMove = MovementValues.Undefined;
+			this.Ready = true;
+
 			if ( this.AfterStateChanged != null )
-				this.AfterStateChanged(null, null);
+				this.AfterStateChanged(this, EventArgs.Empty);
 		}
 
 		public void Load(string filename, string inputString)
@@ -73,6 +82,7 @@
 			{
 				case MovementValues.S:
 					this.Terminated = true;
+					this.Ready = false;
 					return false;
 				case MovementValues.R:
 					this.tapePosition++;
@@ -98,7 +108,7 @@
 			Debug.WriteLine(string.Format("Post-Step: Pos: {0} | char: {1} -> {2} | Mov: {3} | Tape: {4}", this.TapePosition, tempChar, this.CurrentTapeChar, command.MOV, this.Tape.Length < 50 ? new string(this.Tape) : "Tape zu lang (> 50)"));
 
 			if ( this.AfterStateChanged != null )
-				this.AfterStateChanged(null, null);
+				this.AfterStateChanged(this, EventArgs.Empty);
 
 			return true;
 		}
@@ -109,9 +119,10 @@
 			this.Terminated = false;
 			this.Tape = null;
 			this.nextMove = MovementValues.Undefined;
+			this.Ready = false;
 
 			if ( this.AfterStateChanged != null )
-				this.AfterStateChanged(null, null);
+				this.AfterStateChanged(this, EventArgs.Empty);
 		}
 	}
 }

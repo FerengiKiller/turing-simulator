@@ -2,8 +2,7 @@
 {
 	using System;
 	using System.Reflection;
-	using CS.Core;
-	using CS.Shared;
+	using CPP.Shared;
 	using NUnit.Framework;
 
 	[TestFixture]

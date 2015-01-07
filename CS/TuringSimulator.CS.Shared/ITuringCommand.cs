@@ -5,19 +5,19 @@
 		public static char Terminate = '#';
 	}
 
-	public enum MovementValues
-	{
-		Undefined = -1,
+	//public enum MovementValues
+	//{
+	//    Undefined = -1,
 
-		/// <summary>Stop</summary>
-		S = 0,
+	//    /// <summary>Stop</summary>
+	//    S = 0,
 
-		/// <summary>Right</summary>
-		R = 1,
+	//    /// <summary>Right</summary>
+	//    R = 1,
 
-		/// <summary>Left</summary>
-		L = 2, // Left
-	}
+	//    /// <summary>Left</summary>
+	//    L = 2, // Left
+	//}
 
 	public interface ITuringCommand
 	{
@@ -31,6 +31,6 @@
 
 		char SZ { get; set; }
 
-		MovementValues MOV { get; set; }
+		TuringSimulator.CPP.Shared.MovementValues MOV { get; set; }
 	}
 }

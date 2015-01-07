@@ -32,9 +32,9 @@ namespace TuringSimulatorCPPGUI {
 			//
 		}
 
-		virtual property TuringSimulator::CS::Shared::ITuringLogic ^ Logic
+		virtual property TuringSimulator::CPP::Shared::ITuringLogic ^ Logic
 		{
-			TuringSimulator::CS::Shared::ITuringLogic ^ get() { return this->logic; }
+			TuringSimulator::CPP::Shared::ITuringLogic ^ get() { return this->logic; }
 		}
 
 	protected:
@@ -48,13 +48,19 @@ namespace TuringSimulatorCPPGUI {
 				delete components;
 			}
 		}
+	private: System::Windows::Forms::Label^  lblTapePosition;
+	private: System::Windows::Forms::TextBox^  tbTapePosition;
+	protected: 
 
 	private:
-		TuringSimulator::CS::Shared::ITuringLogic ^ logic;
+		TuringSimulator::CPP::Shared::ITuringLogic ^ logic;
 
 		void afterStateChangedHandler(System::Object^  sender, System::EventArgs^  e)
 		{
 			this->statusStrip1->Text = "!";
+			this->tbTapePosition->Text = Convert::ToString(this->Logic->TapePosition);
+			this->btnStart->Enabled = this->Logic->Ready;
+			this->btnStep->Enabled = this->Logic->Ready;
 		}
 
 	private: System::Windows::Forms::Button^  btnStart;
@@ -93,6 +99,8 @@ namespace TuringSimulatorCPPGUI {
 			this->toolStripMenuItem2 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->beendenToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->lblTape = (gcnew System::Windows::Forms::Label());
+			this->lblTapePosition = (gcnew System::Windows::Forms::Label());
+			this->tbTapePosition = (gcnew System::Windows::Forms::TextBox());
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -162,19 +170,19 @@ namespace TuringSimulatorCPPGUI {
 			// tsmiOpen
 			// 
 			this->tsmiOpen->Name = L"tsmiOpen";
-			this->tsmiOpen->Size = System::Drawing::Size(152, 22);
+			this->tsmiOpen->Size = System::Drawing::Size(120, 22);
 			this->tsmiOpen->Text = L"Öffnen...";
 			this->tsmiOpen->Click += gcnew System::EventHandler(this, &Form1::tsmiOpen_Click);
 			// 
 			// toolStripMenuItem2
 			// 
 			this->toolStripMenuItem2->Name = L"toolStripMenuItem2";
-			this->toolStripMenuItem2->Size = System::Drawing::Size(149, 6);
+			this->toolStripMenuItem2->Size = System::Drawing::Size(117, 6);
 			// 
 			// beendenToolStripMenuItem
 			// 
 			this->beendenToolStripMenuItem->Name = L"beendenToolStripMenuItem";
-			this->beendenToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->beendenToolStripMenuItem->Size = System::Drawing::Size(120, 22);
 			this->beendenToolStripMenuItem->Text = L"Beenden";
 			// 
 			// lblTape
@@ -186,11 +194,30 @@ namespace TuringSimulatorCPPGUI {
 			this->lblTape->TabIndex = 6;
 			this->lblTape->Text = L"Band";
 			// 
+			// lblTapePosition
+			// 
+			this->lblTapePosition->AutoSize = true;
+			this->lblTapePosition->Location = System::Drawing::Point(30, 160);
+			this->lblTapePosition->Name = L"lblTapePosition";
+			this->lblTapePosition->Size = System::Drawing::Size(44, 13);
+			this->lblTapePosition->TabIndex = 7;
+			this->lblTapePosition->Text = L"Position";
+			// 
+			// tbTapePosition
+			// 
+			this->tbTapePosition->Location = System::Drawing::Point(30, 177);
+			this->tbTapePosition->Name = L"tbTapePosition";
+			this->tbTapePosition->ReadOnly = true;
+			this->tbTapePosition->Size = System::Drawing::Size(44, 20);
+			this->tbTapePosition->TabIndex = 8;
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(528, 261);
+			this->Controls->Add(this->tbTapePosition);
+			this->Controls->Add(this->lblTapePosition);
 			this->Controls->Add(this->lblTape);
 			this->Controls->Add(this->statusStrip1);
 			this->Controls->Add(this->menuStrip1);

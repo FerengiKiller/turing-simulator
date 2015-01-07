@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -51,9 +53,9 @@
     <Compile Include="TuringLogic.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TuringSimulator.CS.Shared\TuringSimulator.CS.Shared.csproj">
-      <Project>{F52F6EB5-3BDA-4A1F-B894-5B8AEF74FB25}</Project>
-      <Name>TuringSimulator.CS.Shared</Name>
+    <ProjectReference Include="..\..\CPP\TuringSimulator.CPP.Shared\TuringSimulator.CPP.Shared.vcproj">
+      <Project>{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A}</Project>
+      <Name>TuringSimulator.CPP.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

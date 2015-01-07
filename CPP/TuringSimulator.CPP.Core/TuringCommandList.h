@@ -1,7 +1,7 @@
 #pragma once
 #include "TuringCommand.h"
+namespace CppShared = TuringSimulator::CPP::Shared;
 
-namespace CsShared = TuringSimulator::CS::Shared;
 
 namespace TuringSimulator
 {
@@ -16,14 +16,14 @@ namespace TuringSimulator
 			/// <remarks>
 			/// Keine Prüfung auf mehrere, identische Steps (keine wirkliche Einschränkung)
 			/// </remarks>
-			public ref class TuringCommandList : public List<CsShared::ITuringCommand^>, public CsShared::ITuringCommandList
+			public ref class TuringCommandList : public List<CppShared::ITuringCommand^>, public CppShared::ITuringCommandList
 			{
 			public:
 				TuringCommandList(void);
 
-				virtual CsShared::ITuringCommandList ^ LoadFromFile(System::String ^filename);
+				virtual CppShared::ITuringCommandList ^ LoadFromFile(System::String ^filename);
 
-				virtual CsShared::ITuringCommand^ SelectCommand(int state, wchar_t input);
+				virtual CppShared::ITuringCommand^ SelectCommand(System::Int32 state, wchar_t input);
 			};
 		}
 	}

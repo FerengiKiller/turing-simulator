@@ -10,7 +10,7 @@ namespace TuringSimulator.CS.Core
 	using System.Reflection;
 	using System.Text;
 	using System.Text.RegularExpressions;
-	using Shared;
+	using TuringSimulator.CPP.Shared;
 
 	/// <summary>
 	/// The turing command.
@@ -19,7 +19,7 @@ namespace TuringSimulator.CS.Core
 	{
 		public TuringCommand(string rawLine)
 		{
-			var regEx = Regex.Match(rawLine, TuringSimulator.CS.Shared.Generic.TuringCommandParse, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+			var regEx = Regex.Match(rawLine, Generic.CommandParseRegex, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
 			if ( !regEx.Success )
 				throw new FormatException("Kommandozeichenfolge konnte nicht gelesen werden.");
 
