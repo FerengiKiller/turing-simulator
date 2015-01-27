@@ -22,6 +22,7 @@ namespace TuringSimulator
 				this->Z1 = Int32::Parse(regEx->Groups["Z1"]->Value);
 				this->SZ = Convert::ToChar(regEx->Groups["SZ"]->Value);
 				this->MOV = safe_cast<CppShared::MovementValues>(Enum::Parse(CppShared::MovementValues::typeid, regEx->Groups["MOV"]->Value));
+				this->Raw = rawLine;
 			}
 		}
 	}

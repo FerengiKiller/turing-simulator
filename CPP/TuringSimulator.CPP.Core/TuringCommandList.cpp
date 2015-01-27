@@ -7,8 +7,6 @@ namespace TuringSimulator
 	{
 		namespace Core
 		{
-
-
 TuringCommandList::TuringCommandList(void)
 {
 }

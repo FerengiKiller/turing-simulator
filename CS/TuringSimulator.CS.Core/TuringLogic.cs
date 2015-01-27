@@ -45,6 +45,10 @@
 
 		public bool Ready { get; private set; }
 
+		public int CurrentCommandIndex { get; private set; }
+
+		public ITuringCommand CurrentCommand { get; private set; }
+
 		public void Initialize(ITuringCommandList turingCommandList, string inputString)
 		{
 			this.CommandList = turingCommandList;
@@ -98,6 +102,8 @@
 
 			var tempChar = this.CurrentTapeChar;
 			var command = this.CommandList.SelectCommand(this.currentState, tempChar);
+			this.CurrentCommand = command;
+			this.CurrentCommandIndex = this.CommandList.IndexOf(command);
 			this.currentState = command.Z1;
 
 			// Zeichen auf Tape ggfls. ersetzen lt. Anweisung

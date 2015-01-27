@@ -1,5 +1,7 @@
 #pragma once
 
+
+
 namespace TuringSimulator
 {
 	namespace CPP
@@ -15,6 +17,7 @@ namespace TuringSimulator
 				System::Int32 z1;
 				wchar_t sz;
 				TuringSimulator::CPP::Shared::MovementValues mov;
+				System::String ^ raw;
 
 			public:
 				TuringCommand(System::String^ rawLine);
@@ -49,10 +52,23 @@ namespace TuringSimulator
 					void set(wchar_t value) { this->sz = value; };
 				}
 
+				virtual property System::String ^ Raw
+				{
+					System::String ^ get() { return this->raw; };
+
+				private:
+					void set(System::String ^ value) { this->raw = value; };
+				}
+
 				virtual property TuringSimulator::CPP::Shared::MovementValues MOV
 				{
 					TuringSimulator::CPP::Shared::MovementValues get() { return this->mov; };
 					void set(TuringSimulator::CPP::Shared::MovementValues value) { this->mov = value; };
+				}
+				
+				virtual System::String^ TuringCommand::ToString() override
+				{
+					return System::String::Format("{0}", this->Raw);
 				}
 			};
 		}

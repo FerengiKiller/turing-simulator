@@ -14,7 +14,7 @@ namespace TuringSimulator
 				{
 					System::String ^ get()
 					{
-						Resources::ResourceManager^ rm = gcnew Resources::ResourceManager(L"TuringSimulator.CPP.Shared.GenericResources", System::Reflection::Assembly::GetExecutingAssembly());
+						Resources::ResourceManager^ rm = gcnew Resources::ResourceManager(L"TuringSimulatorCPPShared.GenericResources", System::Reflection::Assembly::GetExecutingAssembly());
 						System::String ^ s = rm->GetString(L"TuringCommandParse");
 						return s;
 					}

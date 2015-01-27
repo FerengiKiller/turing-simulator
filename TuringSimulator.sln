@@ -12,6 +12,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuringSimulator.Tests", "TuringSimulator.Tests\TuringSimulator.Tests.csproj", "{46D4D71B-D9A8-4D6A-BFB6-95FFB0A44827}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D145DCF-7F21-459D-9C5F-E6DCF8151F47}"
+	ProjectSection(SolutionItems) = preProject
+		Readme.txt = Readme.txt
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuringSimulator.CS.Shared", "CS\TuringSimulator.CS.Shared\TuringSimulator.CS.Shared.csproj", "{F52F6EB5-3BDA-4A1F-B894-5B8AEF74FB25}"
 EndProject

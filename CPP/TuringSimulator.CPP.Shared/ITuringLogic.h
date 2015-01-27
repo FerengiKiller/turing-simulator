@@ -26,6 +26,10 @@ namespace TuringSimulator
 				
 				property bool Ready { bool get(); }
 
+				property int CurrentCommandIndex { int get(); }
+
+				property ITuringCommand ^ CurrentCommand { ITuringCommand ^ get(); }
+
 				void Initialize(ITuringCommandList ^ turingCommandList, System::String ^ inputString);
 
 				void Load(System::String ^ filename, System::String ^ inputString);

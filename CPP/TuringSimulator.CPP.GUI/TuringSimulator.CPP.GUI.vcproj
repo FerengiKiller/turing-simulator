@@ -238,11 +238,11 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\Form1.h"
+				RelativePath=".\FormMain.h"
 				FileType="3"
 				>
 				<File
-					RelativePath=".\Form1.resX"
+					RelativePath=".\FormMain.resX"
 					SubType="Designer"
 					>
 				</File>
@@ -274,7 +274,7 @@
 			Name="DataSources"
 			>
 			<File
-				RelativePath=".\Form1.datasource"
+				RelativePath=".\FormMain.datasource"
 				>
 			</File>
 		</Filter>

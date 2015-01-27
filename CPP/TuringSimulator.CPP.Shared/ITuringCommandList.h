@@ -9,7 +9,8 @@ namespace TuringSimulator
 		{	
 			using namespace System;
 			
-			public interface class ITuringCommandList
+			/// <summary></summary>
+			public interface class ITuringCommandList : System::Collections::IList
 			{
 				property System::Int32 Count { System::Int32 get(); }
 				

@@ -5,6 +5,6 @@
     Renaming the file extension or editing the content of this file may   
     cause the file to be unrecognizable by the program.
 -->
-<GenericObjectDataSource DisplayName="Form1" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>TuringSimulatorCPPGUI.Form1, TuringSimulator.CPP.GUI, Version=1.0.5484.26444, Culture=neutral, PublicKeyToken=null</TypeInfo>
+<GenericObjectDataSource DisplayName="FormMain" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+   <TypeInfo>TuringSimulatorCPPGUI.FormMain, TuringSimulator.CPP.GUI, Version=1.0.5484.26444, Culture=neutral, PublicKeyToken=null</TypeInfo>
 </GenericObjectDataSource>
