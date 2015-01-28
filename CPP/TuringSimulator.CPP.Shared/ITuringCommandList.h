@@ -23,6 +23,8 @@ namespace TuringSimulator
 				ITuringCommandList ^ LoadFromFile(System::String ^ filename);
 				
 				ITuringCommand ^ SelectCommand(System::Int32 state, wchar_t input);
+
+				System::Nullable<System::Int32> GetCommandIndex(System::Int32 state, wchar_t input);
 			};
 		}
 	}

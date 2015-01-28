@@ -42,6 +42,7 @@ namespace TuringSimulatorCPPGUI {
 		void afterStateChangedHandler(System::Object^  sender, System::EventArgs^  e)
 		{
 			this->statusStrip1->Text = "!";
+			this->tbTape->Text = gcnew System::String(this->Logic->Tape);
 			this->tbTapePosition->Text = Convert::ToString(this->Logic->TapePosition);
 			this->tbCurrentTapeChar->Text = Convert::ToString(this->Logic->CurrentTapeChar);
 			this->tbNextMove->Text = Convert::ToString(this->Logic->NextMove);
@@ -50,12 +51,17 @@ namespace TuringSimulatorCPPGUI {
 			this->btnStep->Enabled = this->Logic->Ready;
 
 			this->lbCommandListContent->Items->Clear();
+			this->lbCommandListContent->ClearSelected();
+
 			if ( this->Logic->Ready )
 			{
 				for each ( TuringSimulator::CPP::Shared::ITuringCommand ^ command in this->Logic->CommandList )
 				{
 					this->lbCommandListContent->Items->Add(command->ToString());
 				}
+
+				if ( this->Logic->CurrentCommandIndex.HasValue )
+					this->lbCommandListContent->SelectedIndex = this->Logic->CurrentCommandIndex.Value;
 			}
 		}
 
@@ -81,6 +87,9 @@ namespace TuringSimulatorCPPGUI {
 	private: System::Windows::Forms::Label^  lblCurrentTapeChar;
 	private: System::Windows::Forms::TextBox^  tbNextMove;
 	private: System::Windows::Forms::Label^  lblNextMove;
+	private: System::Windows::Forms::Label^  lblCommandListContent;
+	private: System::Windows::Forms::Label^  lblFilename;
+	private: System::Windows::Forms::Button^  btnLoadTape;
 
 
 
@@ -115,12 +124,15 @@ namespace TuringSimulatorCPPGUI {
 			this->lblCurrentTapeChar = (gcnew System::Windows::Forms::Label());
 			this->tbNextMove = (gcnew System::Windows::Forms::TextBox());
 			this->lblNextMove = (gcnew System::Windows::Forms::Label());
+			this->lblCommandListContent = (gcnew System::Windows::Forms::Label());
+			this->lblFilename = (gcnew System::Windows::Forms::Label());
+			this->btnLoadTape = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// btnStart
 			// 
-			this->btnStart->Location = System::Drawing::Point(12, 105);
+			this->btnStart->Location = System::Drawing::Point(451, 91);
 			this->btnStart->Name = L"btnStart";
 			this->btnStart->Size = System::Drawing::Size(75, 23);
 			this->btnStart->TabIndex = 0;
@@ -130,7 +142,7 @@ namespace TuringSimulatorCPPGUI {
 			// 
 			// btnStep
 			// 
-			this->btnStep->Location = System::Drawing::Point(93, 105);
+			this->btnStep->Location = System::Drawing::Point(532, 91);
 			this->btnStep->Name = L"btnStep";
 			this->btnStep->Size = System::Drawing::Size(75, 23);
 			this->btnStep->TabIndex = 1;
@@ -140,7 +152,7 @@ namespace TuringSimulatorCPPGUI {
 			// 
 			// btnReset
 			// 
-			this->btnReset->Location = System::Drawing::Point(174, 105);
+			this->btnReset->Location = System::Drawing::Point(613, 91);
 			this->btnReset->Name = L"btnReset";
 			this->btnReset->Size = System::Drawing::Size(75, 23);
 			this->btnReset->TabIndex = 2;
@@ -228,9 +240,9 @@ namespace TuringSimulatorCPPGUI {
 			// lbCommandListContent
 			// 
 			this->lbCommandListContent->FormattingEnabled = true;
-			this->lbCommandListContent->Location = System::Drawing::Point(491, 105);
+			this->lbCommandListContent->Location = System::Drawing::Point(491, 196);
 			this->lbCommandListContent->Name = L"lbCommandListContent";
-			this->lbCommandListContent->Size = System::Drawing::Size(327, 290);
+			this->lbCommandListContent->Size = System::Drawing::Size(327, 199);
 			this->lbCommandListContent->TabIndex = 10;
 			// 
 			// tbFilename
@@ -296,11 +308,42 @@ namespace TuringSimulatorCPPGUI {
 			this->lblNextMove->TabIndex = 17;
 			this->lblNextMove->Text = L"NextMove";
 			// 
+			// lblCommandListContent
+			// 
+			this->lblCommandListContent->AutoSize = true;
+			this->lblCommandListContent->Location = System::Drawing::Point(491, 173);
+			this->lblCommandListContent->Name = L"lblCommandListContent";
+			this->lblCommandListContent->Size = System::Drawing::Size(272, 13);
+			this->lblCommandListContent->TabIndex = 18;
+			this->lblCommandListContent->Text = L"Kommandoliste (Selektion markiert aktuelles Kommando)";
+			// 
+			// lblFilename
+			// 
+			this->lblFilename->AutoSize = true;
+			this->lblFilename->Location = System::Drawing::Point(12, 48);
+			this->lblFilename->Name = L"lblFilename";
+			this->lblFilename->Size = System::Drawing::Size(58, 13);
+			this->lblFilename->TabIndex = 19;
+			this->lblFilename->Text = L"Dateiname";
+			// 
+			// btnLoadTape
+			// 
+			this->btnLoadTape->Location = System::Drawing::Point(323, 167);
+			this->btnLoadTape->Name = L"btnLoadTape";
+			this->btnLoadTape->Size = System::Drawing::Size(75, 23);
+			this->btnLoadTape->TabIndex = 20;
+			this->btnLoadTape->Text = L"Laden";
+			this->btnLoadTape->UseVisualStyleBackColor = true;
+			this->btnLoadTape->Click += gcnew System::EventHandler(this, &FormMain::btnLoadTape_Click);
+			// 
 			// FormMain
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(830, 434);
+			this->Controls->Add(this->btnLoadTape);
+			this->Controls->Add(this->lblFilename);
+			this->Controls->Add(this->lblCommandListContent);
 			this->Controls->Add(this->lblNextMove);
 			this->Controls->Add(this->tbNextMove);
 			this->Controls->Add(this->lblCurrentTapeChar);
@@ -386,6 +429,19 @@ namespace TuringSimulatorCPPGUI {
             }
 
 			this->tbFilename->Text = dialog->FileName;
+			this->Logic->Load(this->tbFilename->Text, this->tbTape->Text);
+		}
+		
+		System::Void btnLoadTape_Click(System::Object^  sender, System::EventArgs^  e) 
+		{
+			OpenFileDialog^ dialog = gcnew OpenFileDialog();
+            dialog->Filter = "Turing-Bänder (Turing Tape)|*.ttp|Alle Dateien|*.*";
+            if( dialog->ShowDialog() != System::Windows::Forms::DialogResult::OK )
+            {
+                return;
+            }
+
+			this->tbTape->Text = System::IO::File::ReadAllText(dialog->FileName);
 			this->Logic->Load(this->tbFilename->Text, this->tbTape->Text);
 		}
 };

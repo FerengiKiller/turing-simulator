@@ -39,5 +39,10 @@
 		{
 			return this.FirstOrDefault(x => x.Z0 == state && x.GZ == input);
 		}
+
+		public int? GetCommandIndex(int state, char input)
+		{
+			return this.FindIndex(x => x.Z0 == state && x.GZ == input);
+		}
 	}
 }

@@ -45,22 +45,7 @@
 
 		public bool Ready { get; private set; }
 
-		public int CurrentCommandIndex { get; private set; }
-
-		public ITuringCommand CurrentCommand { get; private set; }
-
-		public void Initialize(ITuringCommandList turingCommandList, string inputString)
-		{
-			this.CommandList = turingCommandList;
-			this.Tape = inputString.ToCharArray();
-			this.tapePosition = 0;
-			this.Terminated = false;
-			this.nextMove = MovementValues.Undefined;
-			this.Ready = true;
-
-			if ( this.AfterStateChanged != null )
-				this.AfterStateChanged(this, EventArgs.Empty);
-		}
+		public int? CurrentCommandIndex { get; private set; }
 
 		public void Load(string filename, string inputString)
 		{
@@ -101,9 +86,11 @@
 			}
 
 			var tempChar = this.CurrentTapeChar;
-			var command = this.CommandList.SelectCommand(this.currentState, tempChar);
-			this.CurrentCommand = command;
-			this.CurrentCommandIndex = this.CommandList.IndexOf(command);
+			this.CurrentCommandIndex = this.CommandList.GetCommandIndex(this.currentState, tempChar);
+			if ( this.CurrentCommandIndex == null )
+				throw new Exception("Gefordertes Kommando nicht in Liste gefunden!");
+
+			var command = this.CommandList[this.CurrentCommandIndex.Value];
 			this.currentState = command.Z1;
 
 			// Zeichen auf Tape ggfls. ersetzen lt. Anweisung
@@ -119,15 +106,32 @@
 			return true;
 		}
 
+		public void Initialize(ITuringCommandList turingCommandList, string inputString)
+		{
+			this.Reset(true);
+			this.CommandList = turingCommandList;
+			this.Tape = inputString.ToCharArray();
+			this.Ready = true;
+
+			if ( this.AfterStateChanged != null )
+				this.AfterStateChanged(this, EventArgs.Empty);
+		}
+
 		public void Reset()
 		{
+			this.Reset(false);
+		}
+
+		private void Reset(bool skipAfterStateChanged)
+		{
+			this.CurrentCommandIndex = null;
 			this.tapePosition = 0;
 			this.Terminated = false;
 			this.Tape = null;
 			this.nextMove = MovementValues.Undefined;
 			this.Ready = false;
 
-			if ( this.AfterStateChanged != null )
+			if ( !skipAfterStateChanged && this.AfterStateChanged != null )
 				this.AfterStateChanged(this, EventArgs.Empty);
 		}
 	}

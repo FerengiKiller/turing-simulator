@@ -1,7 +1,5 @@
 #pragma once
 #include "TuringCommand.h"
-namespace CppShared = TuringSimulator::CPP::Shared;
-
 
 namespace TuringSimulator
 {
@@ -11,6 +9,7 @@ namespace TuringSimulator
 		{
 			using namespace System;
 			using namespace System::Collections::Generic;
+			namespace CppShared = TuringSimulator::CPP::Shared;
 
 			/// <summary>Implementiert eine Liste von ITuringCommands</summary>
 			/// <remarks>
@@ -25,6 +24,8 @@ namespace TuringSimulator
 				virtual CppShared::ITuringCommandList ^ LoadFromFile(System::String ^filename);
 
 				virtual CppShared::ITuringCommand^ SelectCommand(System::Int32 state, wchar_t input);
+
+				virtual System::Nullable<System::Int32> GetCommandIndex(System::Int32 state, wchar_t input);
 			};
 		}
 	}

@@ -1,11 +1,4 @@
-/// Implementierung der Turing-Logik
-/// Einschränkungen:
-/// * Das Speicherband (TuringLogic->Tape) ist nicht unendlich lang in beide Richtungen
-
 #pragma once
-using namespace System;
-using namespace System::Diagnostics;
-namespace CppShared = TuringSimulator::CPP::Shared;
 
 namespace TuringSimulator
 {
@@ -13,6 +6,12 @@ namespace TuringSimulator
 	{
 		namespace Core
 		{
+			using namespace System;
+			using namespace System::Diagnostics;
+			namespace CppShared = TuringSimulator::CPP::Shared;
+
+			/// <summary> Implementierung der Turing-Logik</summary>
+			/// <remarks>Einschränkungen: * Das Speicherband (TuringLogic->Tape) ist nicht unendlich lang in beide Richtungen </remarks>
 			public ref class TuringLogic : public CppShared::ITuringLogic
 			{
 			private:
@@ -25,8 +24,7 @@ namespace TuringSimulator
 				int currentState; // MZ - Maschinenzustand
 				EventHandler ^ afterStateChanged;
 				void RaiseAfterStateChanged();
-				int currentCommandIndex;
-				CppShared::ITuringCommand ^ currentCommand;
+				System::Nullable<System::Int32> currentCommandIndex;
 				
 			public:
 				/// <summary></summary>
@@ -66,7 +64,7 @@ namespace TuringSimulator
 				/// <summary></summary>
 				virtual property wchar_t CurrentTapeChar
 				{
-					wchar_t get() { return this->Tape == nullptr ? '?' : this->Tape[this->TapePosition]; };
+					wchar_t get() { return ( this->Tape == nullptr || this->Tape->Length == 0 ) ? '?' : this->Tape[this->TapePosition]; };
 				}
 
 				/// <summary></summary>
@@ -81,14 +79,9 @@ namespace TuringSimulator
 					bool get() { return this->ready; }
 				}
 
-				virtual property int CurrentCommandIndex
+				virtual property System::Nullable<System::Int32> CurrentCommandIndex
 				{
-					int get() { return this->currentCommandIndex; }
-				}
-
-				virtual property CppShared::ITuringCommand ^ CurrentCommand
-				{
-					CppShared::ITuringCommand ^ get() { return this->currentCommand; }
+					System::Nullable<System::Int32> get() { return this->currentCommandIndex; }
 				}
 
 				/// <summary></summary>
@@ -107,6 +100,9 @@ namespace TuringSimulator
 
 				/// <summary>Setzt den Zustand der TuringLogic auf Initialwerte zurück.</summary>
 				virtual void Reset();
+
+			private:
+				virtual void Reset(bool skipAfterStateChanged);
 			};
 		}
 	}

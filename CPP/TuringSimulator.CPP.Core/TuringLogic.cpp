@@ -9,18 +9,6 @@ namespace TuringSimulator
 	{
 		namespace Core
 		{
-			void TuringLogic::Initialize(CppShared::ITuringCommandList ^ turingCommandList, System::String ^ inputString)
-			{
-				this->CommandList = turingCommandList;
-				this->tape = inputString->ToCharArray();
-				this->tapePosition = 0;
-				this->terminated = false;
-				this->nextMove = CppShared::MovementValues::Undefined;
-				this->ready = true;
-
-				this->RaiseAfterStateChanged();
-			}
-
 			void TuringLogic::Load(System::String ^ filename, System::String ^ inputString)
 			{
 				CppShared::ITuringCommandList ^ turingCommandList = gcnew TuringCommandList();
@@ -60,7 +48,11 @@ namespace TuringSimulator
 				}
 
 				wchar_t tempChar = this->CurrentTapeChar;
-				CppShared::ITuringCommand ^ command = this->CommandList->SelectCommand(this->currentState, tempChar);
+				this->currentCommandIndex = this->CommandList->GetCommandIndex(this->currentState, tempChar);
+				if ( !this->CurrentCommandIndex.HasValue )
+					throw gcnew Exception("Gefordertes Kommando nicht in Liste gefunden!");
+
+				CppShared::ITuringCommand ^ command = this->CommandList[this->CurrentCommandIndex.Value];
 				this->currentState = command->Z1;
 
 				// Zeichen auf Tape ggfls. ersetzen lt. Anweisung
@@ -74,16 +66,20 @@ namespace TuringSimulator
 
 				return true;			
 			}
+
+			void TuringLogic::Initialize(CppShared::ITuringCommandList ^ turingCommandList, System::String ^ inputString)
+			{
+				this->Reset(true);
+				this->CommandList = turingCommandList;
+				this->tape = inputString->ToCharArray();
+				this->ready = true;
+
+				this->RaiseAfterStateChanged();
+			}
 			
 			void TuringLogic::Reset(void)
 			{
-				this->tapePosition = 0;
-				this->terminated = false;
-				this->tape = nullptr;
-				this->nextMove = CppShared::MovementValues::Undefined;
-				this->ready = false;
-
-				this->RaiseAfterStateChanged();
+				this->Reset(false);
 			}
 
 			/// Prüft bzw. ruft den EventHandler für AfterStateChanged auf
@@ -92,6 +88,19 @@ namespace TuringSimulator
 			{
 				if ( this->afterStateChanged != nullptr )
 					this->afterStateChanged->Invoke(this, System::EventArgs::Empty);
+			}
+
+			void TuringLogic::Reset(bool skipAfterStateChanged)
+			{
+				this->currentCommandIndex = System::Nullable<System::Int32>();
+				this->tapePosition = 0;
+				this->terminated = false;
+				this->tape = nullptr;
+				this->nextMove = CppShared::MovementValues::Undefined;
+				this->ready = false;
+
+				if ( !skipAfterStateChanged )
+					this->RaiseAfterStateChanged();
 			}
 		}
 	}

@@ -6,6 +6,9 @@ namespace TuringSimulator
 	{
 		namespace Shared
 		{
+			/// <summary>Implementiert ITuringCommand</summary>
+			/// <remarks>
+			/// </remarks>
 			public interface class ITuringCommand
 			{
 				property System::Int32 Line;

@@ -1,13 +1,14 @@
 #pragma once
 
-
-
 namespace TuringSimulator
 {
 	namespace CPP
 	{
 		namespace Core
 		{
+			/// <summary>Implementiert ITuringCommand</summary>
+			/// <remarks>
+			/// </remarks>
 			public ref class TuringCommand : public TuringSimulator::CPP::Shared::ITuringCommand
 			{
 			private:

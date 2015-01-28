@@ -26,9 +26,7 @@ namespace TuringSimulator
 				
 				property bool Ready { bool get(); }
 
-				property int CurrentCommandIndex { int get(); }
-
-				property ITuringCommand ^ CurrentCommand { ITuringCommand ^ get(); }
+				property System::Nullable<System::Int32> CurrentCommandIndex { System::Nullable<System::Int32> get(); }
 
 				void Initialize(ITuringCommandList ^ turingCommandList, System::String ^ inputString);
 
