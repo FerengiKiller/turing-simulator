@@ -1,4 +1,8 @@
-﻿namespace TuringSimulator.Tests
+﻿// <copyright file="CommandTests.cs" company="Private">
+//   Copyright (c) Sascha Schwegelbauer. All rights reserved.
+// </copyright>
+
+namespace TuringSimulator.Tests
 {
 	using System;
 	using System.Linq;

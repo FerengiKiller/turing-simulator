@@ -12,7 +12,7 @@ using namespace System::Security::Permissions;
 
 [assembly:AssemblyTitleAttribute("TuringSimulatorCPPCore")];
 [assembly:AssemblyCompanyAttribute("")];
-[assembly:AssemblyProductAttribute("TuringSimulatorCPPCore")];
+[assembly:AssemblyProductAttribute("TuringSimulator")];
 [assembly:AssemblyCopyrightAttribute("Copyright (c) 2014 Sascha Schwegelbauer")];
 [assembly:AssemblyCultureAttribute("")];
 [assembly:AssemblyVersionAttribute("1.0.*")];

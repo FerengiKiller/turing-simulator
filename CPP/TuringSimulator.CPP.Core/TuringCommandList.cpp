@@ -1,3 +1,7 @@
+// <copyright file="TuringCommandList.cpp" company="Privat">
+//   Copyright (c) Sascha Schwegelbauer. All rights reserved.
+// </copyright>
+
 #include "StdAfx.h"
 #include "TuringCommandList.h"
 

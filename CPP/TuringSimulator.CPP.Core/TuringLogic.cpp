@@ -1,7 +1,10 @@
+// <copyright file="TuringLogic.cpp" company="Privat">
+//   Copyright (c) Sascha Schwegelbauer. All rights reserved.
+// </copyright>
+
 #include "StdAfx.h"
 #include "TuringLogic.h"
 #include "TuringCommandList.h"
-namespace CppShared = TuringSimulator::CPP::Shared;
 
 namespace TuringSimulator
 {
@@ -9,6 +12,8 @@ namespace TuringSimulator
 	{
 		namespace Core
 		{
+			namespace CppShared = TuringSimulator::CPP::Shared;
+
 			void TuringLogic::Load(System::String ^ filename, System::String ^ inputString)
 			{
 				CppShared::ITuringCommandList ^ turingCommandList = gcnew TuringCommandList();
@@ -27,13 +32,14 @@ namespace TuringSimulator
 			
 			bool TuringLogic::Step(void)
 			{
-				Debug::WriteLine(String::Format("Pre-Step : Pos: {0} | char: {1} | nMov: {2} | Tape: {3}", this->TapePosition, this->CurrentTapeChar, this->nextMove, this->Tape->Length < 50 ? gcnew String(this->Tape) : "Tape zu lang (> 50)"));
+				this->RaiseLogReceived(String::Format("Pre-Step : Pos: {0} | char: {1} | nMov: {2} | Tape: {3}", this->TapePosition, this->CurrentTapeChar, this->nextMove, this->Tape->Length < 50 ? gcnew String(this->Tape) : "Tape zu lang (> 50)"));
 				
 				switch ( this->nextMove )
 				{						
 					case CppShared::MovementValues::S:
 						this->terminated = true;
 						this->ready = false;
+						this->RaiseLogReceived("Keine Ausführung - Zustand STOP!");
 						return false;
 					case CppShared::MovementValues::R:
 						this->tapePosition++;
@@ -60,8 +66,7 @@ namespace TuringSimulator
 					this->Tape[this->TapePosition] = command->SZ;
 				
 				this->nextMove = command->MOV;
-				Debug::WriteLine(String::Format("Post-Step: Pos: {0} | char: {1} -> {2} | Mov: {3} | Tape: {4}", this->TapePosition, tempChar, this->CurrentTapeChar, command->MOV, this->Tape->Length < 50 ? gcnew String(this->Tape) : "Tape zu lang (> 50)"));
-
+				this->RaiseLogReceived(String::Format("Post-Step: Pos: {0} | char: {1} -> {2} | Mov: {3} | Tape: {4}", this->TapePosition, tempChar, this->CurrentTapeChar, command->MOV, this->Tape->Length < 50 ? gcnew String(this->Tape) : "Tape zu lang (> 50)"));
 				this->RaiseAfterStateChanged();
 
 				return true;			
@@ -88,6 +93,14 @@ namespace TuringSimulator
 			{
 				if ( this->afterStateChanged != nullptr )
 					this->afterStateChanged->Invoke(this, System::EventArgs::Empty);
+			}
+
+			void TuringLogic::RaiseLogReceived(System::String ^ logMessage)
+			{
+				Debug::WriteLine(logMessage);
+
+				if ( this->logReceived != nullptr )
+					this->logReceived->Invoke(logMessage);
 			}
 
 			void TuringLogic::Reset(bool skipAfterStateChanged)

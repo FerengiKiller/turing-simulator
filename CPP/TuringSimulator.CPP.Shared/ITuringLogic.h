@@ -1,3 +1,7 @@
+// <copyright file="ITuringLogic.h" company="Privat">
+//   Copyright (c) Sascha Schwegelbauer. All rights reserved.
+// </copyright>
+
 #include "ITuringCommandList.h"
 
 namespace TuringSimulator
@@ -8,10 +12,14 @@ namespace TuringSimulator
 		{	
 			using namespace System;
 			
+			public delegate void LogEventArgs(System::String ^ logMessage);
+			
 			public interface class ITuringLogic
 			{
 				event EventHandler ^ AfterStateChanged;
 				
+				event LogEventArgs ^ LogReceived;
+
 				property ITuringCommandList ^ CommandList { ITuringCommandList ^ get(); }
 				
 				property cli::array<wchar_t> ^ Tape { cli::array<wchar_t> ^ get(); }

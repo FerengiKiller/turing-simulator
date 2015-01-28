@@ -1,5 +1,10 @@
+// <copyright file="ITuringCommand.h" company="Privat">
+//   Copyright (c) Sascha Schwegelbauer. All rights reserved.
+// </copyright>
+
 #pragma once
 #include "MovementValues.h"
+
 namespace TuringSimulator
 {
 	namespace CPP

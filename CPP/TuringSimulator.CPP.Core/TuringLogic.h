@@ -1,3 +1,7 @@
+// <copyright file="TuringLogic.h" company="Privat">
+//   Copyright (c) Sascha Schwegelbauer. All rights reserved.
+// </copyright>
+
 #pragma once
 
 namespace TuringSimulator
@@ -23,7 +27,7 @@ namespace TuringSimulator
 				bool ready;
 				int currentState; // MZ - Maschinenzustand
 				EventHandler ^ afterStateChanged;
-				void RaiseAfterStateChanged();
+				CppShared::LogEventArgs ^ logReceived;
 				System::Nullable<System::Int32> currentCommandIndex;
 				
 			public:
@@ -32,6 +36,15 @@ namespace TuringSimulator
 				{
 					void add(EventHandler ^ handler) { this->afterStateChanged += handler; }
 					void remove(EventHandler ^ handler) { this->afterStateChanged -= handler; }
+				}
+
+				virtual event CppShared::LogEventArgs ^ LogEvent;
+
+				/// <summary></summary>
+				virtual event CppShared::LogEventArgs ^ LogReceived
+				{
+					void add(CppShared::LogEventArgs^ handler) { this->logReceived += handler; }
+					void remove(CppShared::LogEventArgs ^ handler) { this->logReceived -= handler; }
 				}
 
 				/// <summary></summary>
@@ -103,6 +116,8 @@ namespace TuringSimulator
 
 			private:
 				virtual void Reset(bool skipAfterStateChanged);
+				void RaiseAfterStateChanged();
+				void RaiseLogReceived(System::String ^ logMessage);
 			};
 		}
 	}

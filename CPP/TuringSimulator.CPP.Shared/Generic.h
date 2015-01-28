@@ -1,4 +1,9 @@
+// <copyright file="Generic.h" company="Privat">
+//   Copyright (c) Sascha Schwegelbauer. All rights reserved.
+// </copyright>
+
 #pragma once
+
 namespace TuringSimulator
 {
 	namespace CPP

@@ -1,9 +1,9 @@
+// <copyright file="TuringCommand.cpp" company="Privat">
+//   Copyright (c) Sascha Schwegelbauer. All rights reserved.
+// </copyright>
+
 #include "StdAfx.h"
 #include "TuringCommand.h"
-
-using namespace System;
-using namespace System::Text::RegularExpressions;
-namespace CppShared = TuringSimulator::CPP::Shared;
 
 namespace TuringSimulator
 {
@@ -11,6 +11,10 @@ namespace TuringSimulator
 	{
 		namespace Core
 		{
+			using namespace System;
+			using namespace System::Text::RegularExpressions;
+			namespace CppShared = TuringSimulator::CPP::Shared;
+
 			TuringCommand::TuringCommand(System::String^ rawLine)
 			{
 				Match^ regEx = Regex::Match(rawLine, TuringSimulator::CPP::Shared::Generic::CommandParseRegex, RegexOptions::IgnoreCase | RegexOptions::IgnorePatternWhitespace);

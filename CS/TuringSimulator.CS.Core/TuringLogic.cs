@@ -1,4 +1,8 @@
-﻿namespace TuringSimulator.CS.Core
+﻿// <copyright file="TuringLogic.cs" company="Private">
+//   Copyright (c) Sascha Schwegelbauer. All rights reserved.
+// </copyright>
+
+namespace TuringSimulator.CS.Core
 {
 	using System;
 	using System.Collections.Generic;
@@ -21,6 +25,8 @@
 		}
 
 		public event EventHandler AfterStateChanged;
+
+		public event LogEventArgs LogReceived;
 
 		public ITuringCommandList CommandList { get; private set; }
 
@@ -65,7 +71,7 @@
 
 		public bool Step()
 		{
-			Debug.WriteLine(string.Format("Pre-Step : Pos: {0} | char: {1} | nMov: {2} | Tape: {3}", this.TapePosition, this.CurrentTapeChar, this.nextMove, this.Tape.Length < 50 ? new string(this.Tape) : "Tape zu lang (> 50)"));
+			this.RaiseLogReceived(string.Format("Pre-Step : Pos: {0} | char: {1} | nMov: {2} | Tape: {3}", this.TapePosition, this.CurrentTapeChar, this.nextMove, this.Tape.Length < 50 ? new string(this.Tape) : "Tape zu lang (> 50)"));
 
 			switch ( this.nextMove )
 			{
@@ -98,10 +104,9 @@
 				this.Tape[this.TapePosition] = command.SZ;
 
 			this.nextMove = command.MOV;
-			Debug.WriteLine(string.Format("Post-Step: Pos: {0} | char: {1} -> {2} | Mov: {3} | Tape: {4}", this.TapePosition, tempChar, this.CurrentTapeChar, command.MOV, this.Tape.Length < 50 ? new string(this.Tape) : "Tape zu lang (> 50)"));
+			this.RaiseLogReceived(string.Format("Post-Step: Pos: {0} | char: {1} -> {2} | Mov: {3} | Tape: {4}", this.TapePosition, tempChar, this.CurrentTapeChar, command.MOV, this.Tape.Length < 50 ? new string(this.Tape) : "Tape zu lang (> 50)"));
 
-			if ( this.AfterStateChanged != null )
-				this.AfterStateChanged(this, EventArgs.Empty);
+			this.RaiseAfterStateChanged();
 
 			return true;
 		}
@@ -113,8 +118,7 @@
 			this.Tape = inputString.ToCharArray();
 			this.Ready = true;
 
-			if ( this.AfterStateChanged != null )
-				this.AfterStateChanged(this, EventArgs.Empty);
+			this.RaiseAfterStateChanged();
 		}
 
 		public void Reset()
@@ -131,8 +135,24 @@
 			this.nextMove = MovementValues.Undefined;
 			this.Ready = false;
 
-			if ( !skipAfterStateChanged && this.AfterStateChanged != null )
+			if ( !skipAfterStateChanged )
+				this.RaiseAfterStateChanged();
+		}
+
+		/// Prüft bzw. ruft den EventHandler für AfterStateChanged auf
+		/// 2015-01-06 SaS: Sollte an sich auch ohne den nullptr-check funktionieren, nur lässt sich das (nach meinem aktuellen C++/CLI - Wissen) nicht mit der Definition des Events im Interface vereinbaren
+		private void RaiseAfterStateChanged()
+		{
+			if ( this.AfterStateChanged != null )
 				this.AfterStateChanged(this, EventArgs.Empty);
+		}
+
+		private void RaiseLogReceived(string logMessage)
+		{
+			Debug.WriteLine(logMessage);
+
+			if ( this.LogReceived != null )
+				this.LogReceived(logMessage);
 		}
 	}
 }

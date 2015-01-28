@@ -1,4 +1,6 @@
-// TuringSimulator.CPP.GUI.cpp : main project file.
+// <copyright file="TuringSimulator.CPP.GUI.cpp" company="Privat">
+//   Copyright (c) Sascha Schwegelbauer. All rights reserved.
+// </copyright>
 
 #include "stdafx.h"
 #include "FormMain.h"

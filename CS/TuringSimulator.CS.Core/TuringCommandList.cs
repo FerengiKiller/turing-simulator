@@ -1,4 +1,8 @@
-﻿namespace TuringSimulator.CS.Core
+﻿// <copyright file="TuringCommandList.cs" company="Private">
+//   Copyright (c) Sascha Schwegelbauer. All rights reserved.
+// </copyright>
+
+namespace TuringSimulator.CS.Core
 {
 	using System;
 	using System.Collections.Generic;

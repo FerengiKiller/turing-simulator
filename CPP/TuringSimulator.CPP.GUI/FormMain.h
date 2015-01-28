@@ -1,5 +1,8 @@
-#pragma once
+// <copyright file="FormMain.h" company="Privat">
+//   Copyright (c) Sascha Schwegelbauer. All rights reserved.
+// </copyright>
 
+#pragma once
 
 namespace TuringSimulatorCPPGUI {
 
@@ -20,6 +23,7 @@ namespace TuringSimulatorCPPGUI {
 
 			this->logic = gcnew TuringSimulator::CPP::Core::TuringLogic();
 			this->logic->AfterStateChanged += gcnew System::EventHandler(this, &FormMain::afterStateChangedHandler);
+			this->logic->LogReceived += gcnew TuringSimulator::CPP::Shared::LogEventArgs(this, &FormMain::logMessageHandler);
 		}
 
 		virtual property TuringSimulator::CPP::Shared::ITuringLogic ^ Logic
@@ -65,6 +69,11 @@ namespace TuringSimulatorCPPGUI {
 			}
 		}
 
+		void logMessageHandler(System::String ^ logMessage)
+		{
+			this->tbLog->Text += System::String::Format("{0} {1}" + System::Environment::NewLine, System::DateTime::Now.ToShortTimeString(), logMessage);
+		}
+
 		TuringSimulator::CPP::Shared::ITuringLogic ^ logic;
 		System::Windows::Forms::Label^  lblTapePosition;
 		System::Windows::Forms::TextBox^  tbTapePosition;
@@ -90,6 +99,7 @@ namespace TuringSimulatorCPPGUI {
 	private: System::Windows::Forms::Label^  lblCommandListContent;
 	private: System::Windows::Forms::Label^  lblFilename;
 	private: System::Windows::Forms::Button^  btnLoadTape;
+	private: System::Windows::Forms::TextBox^  tbLog;
 
 
 
@@ -127,6 +137,7 @@ namespace TuringSimulatorCPPGUI {
 			this->lblCommandListContent = (gcnew System::Windows::Forms::Label());
 			this->lblFilename = (gcnew System::Windows::Forms::Label());
 			this->btnLoadTape = (gcnew System::Windows::Forms::Button());
+			this->tbLog = (gcnew System::Windows::Forms::TextBox());
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -242,7 +253,7 @@ namespace TuringSimulatorCPPGUI {
 			this->lbCommandListContent->FormattingEnabled = true;
 			this->lbCommandListContent->Location = System::Drawing::Point(491, 196);
 			this->lbCommandListContent->Name = L"lbCommandListContent";
-			this->lbCommandListContent->Size = System::Drawing::Size(327, 199);
+			this->lbCommandListContent->Size = System::Drawing::Size(327, 95);
 			this->lbCommandListContent->TabIndex = 10;
 			// 
 			// tbFilename
@@ -293,7 +304,7 @@ namespace TuringSimulatorCPPGUI {
 			// 
 			// tbNextMove
 			// 
-			this->tbNextMove->Location = System::Drawing::Point(216, 339);
+			this->tbNextMove->Location = System::Drawing::Point(345, 261);
 			this->tbNextMove->Name = L"tbNextMove";
 			this->tbNextMove->ReadOnly = true;
 			this->tbNextMove->Size = System::Drawing::Size(100, 20);
@@ -302,7 +313,7 @@ namespace TuringSimulatorCPPGUI {
 			// lblNextMove
 			// 
 			this->lblNextMove->AutoSize = true;
-			this->lblNextMove->Location = System::Drawing::Point(216, 320);
+			this->lblNextMove->Location = System::Drawing::Point(345, 242);
 			this->lblNextMove->Name = L"lblNextMove";
 			this->lblNextMove->Size = System::Drawing::Size(56, 13);
 			this->lblNextMove->TabIndex = 17;
@@ -336,11 +347,26 @@ namespace TuringSimulatorCPPGUI {
 			this->btnLoadTape->UseVisualStyleBackColor = true;
 			this->btnLoadTape->Click += gcnew System::EventHandler(this, &FormMain::btnLoadTape_Click);
 			// 
+			// tbLog
+			// 
+			this->tbLog->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->tbLog->Font = (gcnew System::Drawing::Font(L"Lucida Console", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->tbLog->Location = System::Drawing::Point(12, 323);
+			this->tbLog->Multiline = true;
+			this->tbLog->Name = L"tbLog";
+			this->tbLog->ReadOnly = true;
+			this->tbLog->Size = System::Drawing::Size(806, 86);
+			this->tbLog->TabIndex = 21;
+			// 
 			// FormMain
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(830, 434);
+			this->Controls->Add(this->tbLog);
 			this->Controls->Add(this->btnLoadTape);
 			this->Controls->Add(this->lblFilename);
 			this->Controls->Add(this->lblCommandListContent);

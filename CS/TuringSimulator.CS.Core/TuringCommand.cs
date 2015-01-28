@@ -1,4 +1,4 @@
-﻿// <copyright file="TuringCommand.cs" person="Sascha Schwegelbauer" company="Private">
+﻿// <copyright file="TuringCommand.cs" company="Private">
 //   Copyright (c) Sascha Schwegelbauer. All rights reserved.
 // </copyright>
 
