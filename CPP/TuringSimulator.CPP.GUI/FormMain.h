@@ -91,20 +91,18 @@ namespace TuringSimulatorCPPGUI {
 		System::Windows::Forms::ToolStripSeparator^  toolStripMenuItem2;
 		System::Windows::Forms::ToolStripMenuItem^  beendenToolStripMenuItem;
 		System::Windows::Forms::Label^  lblTape;
-	private: System::Windows::Forms::ListBox^  lbCommandListContent;
-	private: System::Windows::Forms::TextBox^  tbFilename;
-	private: System::Windows::Forms::Button^  btnSelectAndLoad;
-	private: System::Windows::Forms::Button^  btnLoadFile;
-	private: System::Windows::Forms::TextBox^  tbCurrentTapeChar;
-	private: System::Windows::Forms::Label^  lblCurrentTapeChar;
-	private: System::Windows::Forms::TextBox^  tbNextMove;
-	private: System::Windows::Forms::Label^  lblNextMove;
-	private: System::Windows::Forms::Label^  lblCommandListContent;
-	private: System::Windows::Forms::Label^  lblFilename;
-	private: System::Windows::Forms::Button^  btnLoadTape;
-	private: System::Windows::Forms::TextBox^  tbLog;
-
-
+		System::Windows::Forms::ListBox^  lbCommandListContent;
+		System::Windows::Forms::TextBox^  tbFilename;
+		System::Windows::Forms::Button^  btnSelectAndLoad;
+		System::Windows::Forms::Button^  btnLoadFile;
+		System::Windows::Forms::TextBox^  tbCurrentTapeChar;
+		System::Windows::Forms::Label^  lblCurrentTapeChar;
+		System::Windows::Forms::TextBox^  tbNextMove;
+		System::Windows::Forms::Label^  lblNextMove;
+		System::Windows::Forms::Label^  lblCommandListContent;
+		System::Windows::Forms::Label^  lblFilename;
+		System::Windows::Forms::Button^  btnLoadTape;
+		System::Windows::Forms::TextBox^  tbLog;
 
 		/// <summary>Required designer variable.</summary>
 		System::ComponentModel::Container ^components;
@@ -474,9 +472,10 @@ namespace TuringSimulatorCPPGUI {
 
 			this->tbTape->Text = System::IO::File::ReadAllText(dialog->FileName);
 		}
-private: System::Void tbLog_DoubleClick(System::Object^  sender, System::EventArgs^  e)
-		 {
-			 this->tbLog->Clear();
-		 }
+
+		System::Void tbLog_DoubleClick(System::Object^  sender, System::EventArgs^  e)
+		{
+			this->tbLog->Clear();
+		}
 };
 }

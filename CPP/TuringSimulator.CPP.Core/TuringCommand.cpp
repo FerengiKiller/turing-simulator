@@ -2,7 +2,7 @@
 //   Copyright (c) Sascha Schwegelbauer. All rights reserved.
 // </copyright>
 
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "TuringCommand.h"
 
 namespace TuringSimulator

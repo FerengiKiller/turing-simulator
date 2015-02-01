@@ -4,7 +4,6 @@
 
 #include "StdAfx.h"
 #include "TuringLogic.h"
-#include "TuringCommandList.h"
 
 namespace TuringSimulator
 {

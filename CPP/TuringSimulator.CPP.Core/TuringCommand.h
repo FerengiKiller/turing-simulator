@@ -3,6 +3,7 @@
 // </copyright>
 
 #pragma once
+#include "stdafx.h"
 
 namespace TuringSimulator
 {
@@ -11,8 +12,7 @@ namespace TuringSimulator
 		namespace Core
 		{
 			/// <summary>Implementiert ITuringCommand</summary>
-			/// <remarks>
-			/// </remarks>
+			/// <remarks></remarks>
 			public ref class TuringCommand : public TuringSimulator::CPP::Shared::ITuringCommand
 			{
 			private:

@@ -3,7 +3,7 @@
 // </copyright>
 
 #pragma once
-#include "TuringCommand.h"
+#include "stdafx.h"
 
 namespace TuringSimulator
 {

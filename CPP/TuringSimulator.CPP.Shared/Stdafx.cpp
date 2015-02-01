@@ -1,6 +1,6 @@
-// stdafx.cpp : source file that includes just the standard includes
-// TuringSimulator.CPP.Shared.pch will be the pre-compiled header
-// stdafx.obj will contain the pre-compiled type information
+// <copyright file="Stdafx.cpp" company="Privat">
+//   Copyright (c) Sascha Schwegelbauer. All rights reserved.
+// </copyright>
 
 #include "stdafx.h"
 #include "MovementValues.h"

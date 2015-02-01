@@ -5,16 +5,10 @@
 namespace TuringSimulator.CS.Core
 {
 	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Reflection;
-	using System.Text;
 	using System.Text.RegularExpressions;
 	using TuringSimulator.CPP.Shared;
 
-	/// <summary>
-	/// The turing command.
-	/// </summary>
+	/// <summary>Implementiert ITuringCommand</summary>
 	public class TuringCommand : ITuringCommand
 	{
 		public TuringCommand(string rawData)

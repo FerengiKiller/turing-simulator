@@ -1,7 +1,9 @@
-// stdafx.h : include file for standard system include files,
-// or project specific include files that are used frequently,
-// but are changed infrequently
+// <copyright file="Stdafx.h" company="Privat">
+//   Copyright (c) Sascha Schwegelbauer. All rights reserved.
+// </copyright>
 
 #pragma once
 
-
+#include "TuringCommand.h"
+#include "TuringCommandList.h"
+#include "TuringLogic.h"
