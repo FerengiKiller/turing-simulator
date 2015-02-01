@@ -75,6 +75,8 @@ namespace TuringSimulator
 				{
 					return System::String::Format("{0}", this->Raw);
 				}
+
+				virtual void Initialize(System::String ^ rawData);
 			};
 		}
 	}

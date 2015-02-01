@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="AUTOMATON" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="ITEM">
+    <xs:complexType>
+      <xs:attribute name="value" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TOP">
+    <xs:complexType>
+      <xs:attribute name="value" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AUTOMATON" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="ITEM" />
+        <xs:element ref="TOP" />
+        <xs:element name="TYPE">
+          <xs:complexType>
+            <xs:attribute name="value" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ALPHABET">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="ITEM" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TAPEALPHABET">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="ITEM" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="STATE">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TRANSITION" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="LABEL" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="read" type="xs:string" />
+                        <xs:attribute name="direction" type="xs:string" />
+                        <xs:attribute name="write" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="target" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" />
+            <xs:attribute name="finalstate" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INITIALSTATE">
+          <xs:complexType>
+            <xs:attribute name="value" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TAPEINITIALCHAR">
+          <xs:complexType>
+            <xs:attribute name="value" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="LAYOUT">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="NOTEPAD" type="xs:string" minOccurs="0" />
+              <xs:element name="STATELAYOUT" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="LEFT" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="value" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element ref="TOP" minOccurs="0" maxOccurs="unbounded" />
+                    <xs:element name="TRANSITIONLAYOUT" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element ref="TOP" minOccurs="0" maxOccurs="unbounded" />
+                        </xs:sequence>
+                        <xs:attribute name="target" type="xs:string" />
+                        <xs:attribute name="drawvertical" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="name" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

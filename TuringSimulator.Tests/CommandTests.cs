@@ -55,39 +55,39 @@ namespace TuringSimulator.Tests
 
 		private void TestStart(ITuringLogic logic)
 		{
-			logic.Load(@"..\..\..\_Resources\InverseInput.tur", "0110#");
+			logic.InitializeFromFile(@"..\..\..\_Resources\3bit Addition.tur", "101#110#0000#");
 			logic.Start();
-			Assert.AreEqual("1001#", logic.Tape);
+			Assert.AreEqual("101#110#1011#", logic.Tape);
 		}
 
 		private void Step(ITuringLogic logic)
 		{
-			logic.Load(@"..\..\..\_Resources\InverseInput.tur", "0110#");
+			logic.InitializeFromFile(@"..\..\..\_Resources\InverseInput.tur", "0110#");
 			Assert.AreEqual(MovementValues.Undefined, logic.NextMove);
 
 			logic.Step();
-			Assert.AreEqual(0, logic.TapePosition);
+			Assert.AreEqual(0, logic.TapeheadPosition);
 			Assert.AreEqual('1', logic.CurrentTapeChar);
 			Assert.AreEqual(MovementValues.R, logic.NextMove);
 			Assert.AreEqual(false, logic.Terminated);
 
 			logic.Step();
-			Assert.AreEqual(1, logic.TapePosition);
+			Assert.AreEqual(1, logic.TapeheadPosition);
 			Assert.AreEqual('0', logic.CurrentTapeChar);
 			Assert.AreEqual(false, logic.Terminated);
 
 			logic.Step();
-			Assert.AreEqual(2, logic.TapePosition);
+			Assert.AreEqual(2, logic.TapeheadPosition);
 			Assert.AreEqual('0', logic.CurrentTapeChar);
 			Assert.AreEqual(false, logic.Terminated);
 
 			logic.Step();
-			Assert.AreEqual(3, logic.TapePosition);
+			Assert.AreEqual(3, logic.TapeheadPosition);
 			Assert.AreEqual('1', logic.CurrentTapeChar);
 			Assert.AreEqual(false, logic.Terminated);
 
 			logic.Step();
-			Assert.AreEqual(4, logic.TapePosition);
+			Assert.AreEqual(4, logic.TapeheadPosition);
 			Assert.AreEqual(false, logic.Terminated);
 			Assert.AreEqual("1001#", logic.Tape);
 

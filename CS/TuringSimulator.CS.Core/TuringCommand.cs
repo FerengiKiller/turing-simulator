@@ -17,17 +17,9 @@ namespace TuringSimulator.CS.Core
 	/// </summary>
 	public class TuringCommand : ITuringCommand
 	{
-		public TuringCommand(string rawLine)
+		public TuringCommand(string rawData)
 		{
-			var regEx = Regex.Match(rawLine, Generic.CommandParseRegex, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
-			if ( !regEx.Success )
-				throw new FormatException("Kommandozeichenfolge konnte nicht gelesen werden.");
-
-			this.Z0 = int.Parse(regEx.Groups["Z0"].Value);
-			this.GZ = Convert.ToChar(regEx.Groups["GZ"].Value);
-			this.Z1 = int.Parse(regEx.Groups["Z1"].Value);
-			this.SZ = Convert.ToChar(regEx.Groups["SZ"].Value);
-			this.MOV = (MovementValues)Enum.Parse(typeof(MovementValues), regEx.Groups["MOV"].Value);
+			this.Initialize(rawData);
 		}
 
 		public int Z0 { get; set; }
@@ -41,5 +33,18 @@ namespace TuringSimulator.CS.Core
 		public MovementValues MOV { get; set; }
 
 		public int Line { get; set; }
+
+		public void Initialize(string rawData)
+		{
+			var regEx = Regex.Match(rawData, Generic.CommandParseRegex, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+			if ( !regEx.Success )
+				throw new FormatException("Kommandozeichenfolge konnte nicht gelesen werden: " + rawData);
+
+			this.Z0 = int.Parse(regEx.Groups["Z0"].Value);
+			this.GZ = Convert.ToChar(regEx.Groups["GZ"].Value);
+			this.Z1 = int.Parse(regEx.Groups["Z1"].Value);
+			this.SZ = Convert.ToChar(regEx.Groups["SZ"].Value);
+			this.MOV = (MovementValues)Enum.Parse(typeof(MovementValues), regEx.Groups["MOV"].Value);
+		}
 	}
 }

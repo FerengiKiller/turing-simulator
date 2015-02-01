@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TuringCommandParse" xml:space="preserve">
-    <value>(?&lt;Z0&gt;\d*),(?&lt;GZ&gt;0|1|\#)\-&gt;(?&lt;Z1&gt;\d*),(?&lt;SZ&gt;0|1|\#),(?&lt;MOV&gt;L|R|S)</value>
+    <value>(?&lt;Z0&gt;\d*),(?&lt;GZ&gt;[a-zA-Z0-9]|\#|\$)\-&gt;(?&lt;Z1&gt;\d*),(?&lt;SZ&gt;[a-zA-Z0-9]|\#|\$),(?&lt;MOV&gt;N|L|R|S)</value>
   </data>
 </root>

@@ -21,6 +21,7 @@ namespace TuringSimulatorCPPGUI {
 		{
 			InitializeComponent();
 
+			this->logList = gcnew System::Collections::Generic::List<System::String ^>();
 			this->logic = gcnew TuringSimulator::CPP::Core::TuringLogic();
 			this->logic->AfterStateChanged += gcnew System::EventHandler(this, &FormMain::afterStateChangedHandler);
 			this->logic->LogReceived += gcnew TuringSimulator::CPP::Shared::LogEventArgs(this, &FormMain::logMessageHandler);
@@ -47,7 +48,7 @@ namespace TuringSimulatorCPPGUI {
 		{
 			this->statusStrip1->Text = "!";
 			this->tbTape->Text = gcnew System::String(this->Logic->Tape);
-			this->tbTapePosition->Text = Convert::ToString(this->Logic->TapePosition);
+			this->tbTapeheadPosition->Text = Convert::ToString(this->Logic->TapeheadPosition);
 			this->tbCurrentTapeChar->Text = Convert::ToString(this->Logic->CurrentTapeChar);
 			this->tbNextMove->Text = Convert::ToString(this->Logic->NextMove);
 
@@ -71,12 +72,14 @@ namespace TuringSimulatorCPPGUI {
 
 		void logMessageHandler(System::String ^ logMessage)
 		{
-			this->tbLog->Text += System::String::Format("{0} {1}" + System::Environment::NewLine, System::DateTime::Now.ToShortTimeString(), logMessage);
+			// TODO SaS: Objektmassaker - in keiner Weise optimal, per Gelegenheit auf StringBuilder o.ä. umstellen
+			this->tbLog->Text = System::String::Format("{0} {1}" + System::Environment::NewLine, System::DateTime::Now.ToString("HH:mm:ss"), logMessage) + this->tbLog->Text;
 		}
 
 		TuringSimulator::CPP::Shared::ITuringLogic ^ logic;
-		System::Windows::Forms::Label^  lblTapePosition;
-		System::Windows::Forms::TextBox^  tbTapePosition;
+		System::Collections::Generic::List<System::String^> ^ logList;
+		System::Windows::Forms::Label^  lblTapeheadPosition;
+		System::Windows::Forms::TextBox^  tbTapeheadPosition;
 		System::Windows::Forms::Button^  btnStart;
 		System::Windows::Forms::Button^  btnStep;
 		System::Windows::Forms::Button^  btnReset;
@@ -124,8 +127,8 @@ namespace TuringSimulatorCPPGUI {
 			this->toolStripMenuItem2 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->beendenToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->lblTape = (gcnew System::Windows::Forms::Label());
-			this->lblTapePosition = (gcnew System::Windows::Forms::Label());
-			this->tbTapePosition = (gcnew System::Windows::Forms::TextBox());
+			this->lblTapeheadPosition = (gcnew System::Windows::Forms::Label());
+			this->tbTapeheadPosition = (gcnew System::Windows::Forms::TextBox());
 			this->lbCommandListContent = (gcnew System::Windows::Forms::ListBox());
 			this->tbFilename = (gcnew System::Windows::Forms::TextBox());
 			this->btnSelectAndLoad = (gcnew System::Windows::Forms::Button());
@@ -143,7 +146,7 @@ namespace TuringSimulatorCPPGUI {
 			// 
 			// btnStart
 			// 
-			this->btnStart->Location = System::Drawing::Point(451, 91);
+			this->btnStart->Location = System::Drawing::Point(572, 63);
 			this->btnStart->Name = L"btnStart";
 			this->btnStart->Size = System::Drawing::Size(75, 23);
 			this->btnStart->TabIndex = 0;
@@ -153,7 +156,7 @@ namespace TuringSimulatorCPPGUI {
 			// 
 			// btnStep
 			// 
-			this->btnStep->Location = System::Drawing::Point(532, 91);
+			this->btnStep->Location = System::Drawing::Point(572, 92);
 			this->btnStep->Name = L"btnStep";
 			this->btnStep->Size = System::Drawing::Size(75, 23);
 			this->btnStep->TabIndex = 1;
@@ -163,9 +166,9 @@ namespace TuringSimulatorCPPGUI {
 			// 
 			// btnReset
 			// 
-			this->btnReset->Location = System::Drawing::Point(613, 91);
+			this->btnReset->Location = System::Drawing::Point(653, 63);
 			this->btnReset->Name = L"btnReset";
-			this->btnReset->Size = System::Drawing::Size(75, 23);
+			this->btnReset->Size = System::Drawing::Size(75, 52);
 			this->btnReset->TabIndex = 2;
 			this->btnReset->Text = L"Reset";
 			this->btnReset->UseVisualStyleBackColor = true;
@@ -173,7 +176,7 @@ namespace TuringSimulatorCPPGUI {
 			// 
 			// tbTape
 			// 
-			this->tbTape->Location = System::Drawing::Point(12, 167);
+			this->tbTape->Location = System::Drawing::Point(12, 65);
 			this->tbTape->Name = L"tbTape";
 			this->tbTape->Size = System::Drawing::Size(254, 20);
 			this->tbTape->TabIndex = 3;
@@ -183,7 +186,7 @@ namespace TuringSimulatorCPPGUI {
 			// 
 			this->statusStrip1->Location = System::Drawing::Point(0, 412);
 			this->statusStrip1->Name = L"statusStrip1";
-			this->statusStrip1->Size = System::Drawing::Size(830, 22);
+			this->statusStrip1->Size = System::Drawing::Size(735, 22);
 			this->statusStrip1->TabIndex = 4;
 			this->statusStrip1->Text = L"statusStrip1";
 			// 
@@ -192,7 +195,7 @@ namespace TuringSimulatorCPPGUI {
 			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) {this->dateiToolStripMenuItem});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(830, 24);
+			this->menuStrip1->Size = System::Drawing::Size(735, 24);
 			this->menuStrip1->TabIndex = 5;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
@@ -225,40 +228,40 @@ namespace TuringSimulatorCPPGUI {
 			// lblTape
 			// 
 			this->lblTape->AutoSize = true;
-			this->lblTape->Location = System::Drawing::Point(9, 151);
+			this->lblTape->Location = System::Drawing::Point(9, 49);
 			this->lblTape->Name = L"lblTape";
 			this->lblTape->Size = System::Drawing::Size(32, 13);
 			this->lblTape->TabIndex = 6;
 			this->lblTape->Text = L"Band";
 			// 
-			// lblTapePosition
+			// lblTapeheadPosition
 			// 
-			this->lblTapePosition->AutoSize = true;
-			this->lblTapePosition->Location = System::Drawing::Point(269, 151);
-			this->lblTapePosition->Name = L"lblTapePosition";
-			this->lblTapePosition->Size = System::Drawing::Size(44, 13);
-			this->lblTapePosition->TabIndex = 7;
-			this->lblTapePosition->Text = L"Position";
+			this->lblTapeheadPosition->AutoSize = true;
+			this->lblTapeheadPosition->Location = System::Drawing::Point(269, 49);
+			this->lblTapeheadPosition->Name = L"lblTapeheadPosition";
+			this->lblTapeheadPosition->Size = System::Drawing::Size(44, 13);
+			this->lblTapeheadPosition->TabIndex = 7;
+			this->lblTapeheadPosition->Text = L"Position";
 			// 
-			// tbTapePosition
+			// tbTapeheadPosition
 			// 
-			this->tbTapePosition->Location = System::Drawing::Point(272, 167);
-			this->tbTapePosition->Name = L"tbTapePosition";
-			this->tbTapePosition->ReadOnly = true;
-			this->tbTapePosition->Size = System::Drawing::Size(44, 20);
-			this->tbTapePosition->TabIndex = 8;
+			this->tbTapeheadPosition->Location = System::Drawing::Point(272, 65);
+			this->tbTapeheadPosition->Name = L"tbTapeheadPosition";
+			this->tbTapeheadPosition->ReadOnly = true;
+			this->tbTapeheadPosition->Size = System::Drawing::Size(44, 20);
+			this->tbTapeheadPosition->TabIndex = 8;
 			// 
 			// lbCommandListContent
 			// 
 			this->lbCommandListContent->FormattingEnabled = true;
-			this->lbCommandListContent->Location = System::Drawing::Point(491, 196);
+			this->lbCommandListContent->Location = System::Drawing::Point(401, 157);
 			this->lbCommandListContent->Name = L"lbCommandListContent";
 			this->lbCommandListContent->Size = System::Drawing::Size(327, 95);
 			this->lbCommandListContent->TabIndex = 10;
 			// 
 			// tbFilename
 			// 
-			this->tbFilename->Location = System::Drawing::Point(12, 64);
+			this->tbFilename->Location = System::Drawing::Point(12, 102);
 			this->tbFilename->Name = L"tbFilename";
 			this->tbFilename->Size = System::Drawing::Size(433, 20);
 			this->tbFilename->TabIndex = 11;
@@ -266,7 +269,7 @@ namespace TuringSimulatorCPPGUI {
 			// 
 			// btnSelectAndLoad
 			// 
-			this->btnSelectAndLoad->Location = System::Drawing::Point(451, 62);
+			this->btnSelectAndLoad->Location = System::Drawing::Point(451, 102);
 			this->btnSelectAndLoad->Name = L"btnSelectAndLoad";
 			this->btnSelectAndLoad->Size = System::Drawing::Size(34, 23);
 			this->btnSelectAndLoad->TabIndex = 12;
@@ -277,9 +280,9 @@ namespace TuringSimulatorCPPGUI {
 			// btnLoadFile
 			// 
 			this->btnLoadFile->Enabled = false;
-			this->btnLoadFile->Location = System::Drawing::Point(491, 62);
+			this->btnLoadFile->Location = System::Drawing::Point(491, 63);
 			this->btnLoadFile->Name = L"btnLoadFile";
-			this->btnLoadFile->Size = System::Drawing::Size(75, 23);
+			this->btnLoadFile->Size = System::Drawing::Size(75, 62);
 			this->btnLoadFile->TabIndex = 13;
 			this->btnLoadFile->Text = L"Laden";
 			this->btnLoadFile->UseVisualStyleBackColor = true;
@@ -287,7 +290,7 @@ namespace TuringSimulatorCPPGUI {
 			// 
 			// tbCurrentTapeChar
 			// 
-			this->tbCurrentTapeChar->Location = System::Drawing::Point(216, 261);
+			this->tbCurrentTapeChar->Location = System::Drawing::Point(12, 160);
 			this->tbCurrentTapeChar->Name = L"tbCurrentTapeChar";
 			this->tbCurrentTapeChar->ReadOnly = true;
 			this->tbCurrentTapeChar->Size = System::Drawing::Size(100, 20);
@@ -296,7 +299,7 @@ namespace TuringSimulatorCPPGUI {
 			// lblCurrentTapeChar
 			// 
 			this->lblCurrentTapeChar->AutoSize = true;
-			this->lblCurrentTapeChar->Location = System::Drawing::Point(216, 242);
+			this->lblCurrentTapeChar->Location = System::Drawing::Point(12, 141);
 			this->lblCurrentTapeChar->Name = L"lblCurrentTapeChar";
 			this->lblCurrentTapeChar->Size = System::Drawing::Size(88, 13);
 			this->lblCurrentTapeChar->TabIndex = 15;
@@ -304,7 +307,7 @@ namespace TuringSimulatorCPPGUI {
 			// 
 			// tbNextMove
 			// 
-			this->tbNextMove->Location = System::Drawing::Point(345, 261);
+			this->tbNextMove->Location = System::Drawing::Point(12, 215);
 			this->tbNextMove->Name = L"tbNextMove";
 			this->tbNextMove->ReadOnly = true;
 			this->tbNextMove->Size = System::Drawing::Size(100, 20);
@@ -313,7 +316,7 @@ namespace TuringSimulatorCPPGUI {
 			// lblNextMove
 			// 
 			this->lblNextMove->AutoSize = true;
-			this->lblNextMove->Location = System::Drawing::Point(345, 242);
+			this->lblNextMove->Location = System::Drawing::Point(12, 196);
 			this->lblNextMove->Name = L"lblNextMove";
 			this->lblNextMove->Size = System::Drawing::Size(56, 13);
 			this->lblNextMove->TabIndex = 17;
@@ -322,7 +325,7 @@ namespace TuringSimulatorCPPGUI {
 			// lblCommandListContent
 			// 
 			this->lblCommandListContent->AutoSize = true;
-			this->lblCommandListContent->Location = System::Drawing::Point(491, 173);
+			this->lblCommandListContent->Location = System::Drawing::Point(398, 141);
 			this->lblCommandListContent->Name = L"lblCommandListContent";
 			this->lblCommandListContent->Size = System::Drawing::Size(272, 13);
 			this->lblCommandListContent->TabIndex = 18;
@@ -331,7 +334,7 @@ namespace TuringSimulatorCPPGUI {
 			// lblFilename
 			// 
 			this->lblFilename->AutoSize = true;
-			this->lblFilename->Location = System::Drawing::Point(12, 48);
+			this->lblFilename->Location = System::Drawing::Point(9, 88);
 			this->lblFilename->Name = L"lblFilename";
 			this->lblFilename->Size = System::Drawing::Size(58, 13);
 			this->lblFilename->TabIndex = 19;
@@ -339,7 +342,7 @@ namespace TuringSimulatorCPPGUI {
 			// 
 			// btnLoadTape
 			// 
-			this->btnLoadTape->Location = System::Drawing::Point(323, 167);
+			this->btnLoadTape->Location = System::Drawing::Point(322, 63);
 			this->btnLoadTape->Name = L"btnLoadTape";
 			this->btnLoadTape->Size = System::Drawing::Size(75, 23);
 			this->btnLoadTape->TabIndex = 20;
@@ -354,18 +357,20 @@ namespace TuringSimulatorCPPGUI {
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->tbLog->Font = (gcnew System::Drawing::Font(L"Lucida Console", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->tbLog->Location = System::Drawing::Point(12, 323);
+			this->tbLog->Location = System::Drawing::Point(12, 258);
 			this->tbLog->Multiline = true;
 			this->tbLog->Name = L"tbLog";
 			this->tbLog->ReadOnly = true;
-			this->tbLog->Size = System::Drawing::Size(806, 86);
+			this->tbLog->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
+			this->tbLog->Size = System::Drawing::Size(716, 151);
 			this->tbLog->TabIndex = 21;
+			this->tbLog->DoubleClick += gcnew System::EventHandler(this, &FormMain::tbLog_DoubleClick);
 			// 
 			// FormMain
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(830, 434);
+			this->ClientSize = System::Drawing::Size(735, 434);
 			this->Controls->Add(this->tbLog);
 			this->Controls->Add(this->btnLoadTape);
 			this->Controls->Add(this->lblFilename);
@@ -378,8 +383,8 @@ namespace TuringSimulatorCPPGUI {
 			this->Controls->Add(this->btnSelectAndLoad);
 			this->Controls->Add(this->tbFilename);
 			this->Controls->Add(this->lbCommandListContent);
-			this->Controls->Add(this->tbTapePosition);
-			this->Controls->Add(this->lblTapePosition);
+			this->Controls->Add(this->tbTapeheadPosition);
+			this->Controls->Add(this->lblTapeheadPosition);
 			this->Controls->Add(this->lblTape);
 			this->Controls->Add(this->statusStrip1);
 			this->Controls->Add(this->menuStrip1);
@@ -426,7 +431,7 @@ namespace TuringSimulatorCPPGUI {
             }
 
 			this->tbFilename->Text = dialog->FileName;
-			this->Logic->Load(this->tbFilename->Text, this->tbTape->Text);
+			this->Logic->InitializeFromFile(this->tbFilename->Text, this->tbTape->Text);
 		}
 
 		System::Void FormMain_Shown(System::Object^  sender, System::EventArgs^  e)
@@ -442,7 +447,7 @@ namespace TuringSimulatorCPPGUI {
 		
 		System::Void btnLoadFile_Click(System::Object^  sender, System::EventArgs^  e)
 		{
-			this->Logic->Load(this->tbFilename->Text, this->tbTape->Text);
+			this->Logic->InitializeFromFile(this->tbFilename->Text, this->tbTape->Text);
 		}
 		
 		System::Void btnSelectAndLoad_Click(System::Object^  sender, System::EventArgs^  e)
@@ -455,7 +460,7 @@ namespace TuringSimulatorCPPGUI {
             }
 
 			this->tbFilename->Text = dialog->FileName;
-			this->Logic->Load(this->tbFilename->Text, this->tbTape->Text);
+			this->Logic->InitializeFromFile(this->tbFilename->Text, this->tbTape->Text);
 		}
 		
 		System::Void btnLoadTape_Click(System::Object^  sender, System::EventArgs^  e) 
@@ -468,7 +473,10 @@ namespace TuringSimulatorCPPGUI {
             }
 
 			this->tbTape->Text = System::IO::File::ReadAllText(dialog->FileName);
-			this->Logic->Load(this->tbFilename->Text, this->tbTape->Text);
 		}
+private: System::Void tbLog_DoubleClick(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 this->tbLog->Clear();
+		 }
 };
 }

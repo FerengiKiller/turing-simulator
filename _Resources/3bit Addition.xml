@@ -218,7 +218,11 @@
             <LABEL read="$" direction="NONE" write="$"/>
         </TRANSITION>
     </STATE>
-    <STATE name="q_19" finalstate="true"/>
+    <STATE name="q_19" finalstate="true">
+        <TRANSITION target="q_19">
+            <LABEL read="#" direction="NONE" write="#"/>
+        </TRANSITION>
+    </STATE>
     <STATE name="q_20" finalstate="false">
         <TRANSITION target="q_20">
             <LABEL read="I" direction="LEFT" write="I"/>
@@ -401,6 +405,9 @@
         <STATELAYOUT name="q_19">
             <LEFT value="163"/>
             <TOP value="462"/>
+            <TRANSITIONLAYOUT target="q_19" drawvertical="true">
+                <TOP value="-120"/>
+            </TRANSITIONLAYOUT>
         </STATELAYOUT>
         <STATELAYOUT name="q_20">
             <LEFT value="1400"/>
@@ -419,7 +426,7 @@
             <TRANSITIONLAYOUT target="q_14" drawvertical="true"/>
         </STATELAYOUT>
         <NOTEPAD>
-            {\rtf1\ansi\deff0{\fonttbl{\f0\fnil\fcharset0 Arial;}}
+            {\rtf1\ansi\ansicpg1252\deff0{\fonttbl{\f0\fnil\fcharset0 Arial;}}
 \viewkind4\uc1\pard\lang1031\fs20 
 \par }
 

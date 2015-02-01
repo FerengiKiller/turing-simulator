@@ -12,16 +12,20 @@ namespace TuringSimulator
 		{
 			public enum class MovementValues
 			{
-				Undefined = -1,
-				
 				/// <summary>Stop</summary>
-				S = 0,
+				S = -1,
 				
-				/// <summary>Right</summary>
+				/// <summary>Nicht definiert</summary>
+				Undefined = 0,
+
+				/// <summary>Right: nach Rechts bewegen</summary>
 				R = 1,
 				
-				/// <summary>Left</summary>
-				L = 2 // Left
+				/// <summary>Left: nach Links bewegen</summary>
+				L = 2, // Left
+
+				/// <summary>None: keine Bewegung</summary>
+				N = 3,
 			};
 		}
 	}

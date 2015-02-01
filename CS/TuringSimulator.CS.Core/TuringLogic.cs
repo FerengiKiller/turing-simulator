@@ -11,9 +11,10 @@ namespace TuringSimulator.CS.Core
 	using System.Text;
 	using TuringSimulator.CPP.Shared;
 
+	/// <summary></summary>
 	public class TuringLogic : TuringSimulator.CPP.Shared.ITuringLogic
 	{
-		private int tapePosition;
+		private int tapeheadPosition;
 
 		private int currentState; // MZ - Maschinenzustand
 
@@ -32,9 +33,9 @@ namespace TuringSimulator.CS.Core
 
 		public char[] Tape { get; private set; }
 
-		public int TapePosition
+		public int TapeheadPosition
 		{
-			get { return this.tapePosition; }
+			get { return this.tapeheadPosition; }
 		}
 
 		public MovementValues NextMove
@@ -44,7 +45,13 @@ namespace TuringSimulator.CS.Core
 
 		public char CurrentTapeChar
 		{
-			get { return this.Tape[this.TapePosition]; }
+			get
+			{
+				if ( this.TapeheadPosition < 0 || this.TapeheadPosition >= this.Tape.Length )
+					return '$';
+
+				return this.Tape[this.TapeheadPosition];
+			}
 		}
 
 		public bool Terminated { get; private set; }
@@ -53,7 +60,7 @@ namespace TuringSimulator.CS.Core
 
 		public int? CurrentCommandIndex { get; private set; }
 
-		public void Load(string filename, string inputString)
+		public void InitializeFromFile(string filename, string inputString)
 		{
 			var turingCommandList = new TuringCommandList().LoadFromFile(filename);
 			this.Initialize(turingCommandList, inputString);
@@ -71,7 +78,7 @@ namespace TuringSimulator.CS.Core
 
 		public bool Step()
 		{
-			this.RaiseLogReceived(string.Format("Pre-Step : Pos: {0} | char: {1} | nMov: {2} | Tape: {3}", this.TapePosition, this.CurrentTapeChar, this.nextMove, this.Tape.Length < 50 ? new string(this.Tape) : "Tape zu lang (> 50)"));
+			this.RaiseLogReceived(string.Format("Pre-Step : State: {0} | Pos: {1} | char: {2}      | nMov: {3} | Tape: {4}", this.currentState, this.TapeheadPosition, this.CurrentTapeChar, this.nextMove, this.Tape.Length < 50 ? new string(this.Tape) : "Tape zu lang (> 50)"));
 
 			switch ( this.nextMove )
 			{
@@ -79,11 +86,13 @@ namespace TuringSimulator.CS.Core
 					this.Terminated = true;
 					this.Ready = false;
 					return false;
+				case MovementValues.N:
+					break;
 				case MovementValues.R:
-					this.tapePosition++;
+					this.tapeheadPosition++;
 					break;
 				case MovementValues.L:
-					this.tapePosition--;
+					this.tapeheadPosition--;
 					break;
 				case MovementValues.Undefined:
 					break;
@@ -96,15 +105,17 @@ namespace TuringSimulator.CS.Core
 			if ( this.CurrentCommandIndex == null )
 				throw new Exception("Gefordertes Kommando nicht in Liste gefunden!");
 
+			Debug.WriteLine(string.Format("Hole Kommando mit Index {0} aus Liste...", this.CurrentCommandIndex.Value));
 			var command = this.CommandList[this.CurrentCommandIndex.Value];
+			
 			this.currentState = command.Z1;
 
 			// Zeichen auf Tape ggfls. ersetzen lt. Anweisung
-			if ( command.SZ != '#' )
-				this.Tape[this.TapePosition] = command.SZ;
+			if ( command.SZ != '#' && command.SZ != '$' )
+				this.Tape[this.TapeheadPosition] = command.SZ;
 
 			this.nextMove = command.MOV;
-			this.RaiseLogReceived(string.Format("Post-Step: Pos: {0} | char: {1} -> {2} | Mov: {3} | Tape: {4}", this.TapePosition, tempChar, this.CurrentTapeChar, command.MOV, this.Tape.Length < 50 ? new string(this.Tape) : "Tape zu lang (> 50)"));
+			this.RaiseLogReceived(string.Format("Post-Step: State: {0} | Pos: {1} | char: {2} -> {3} |  Mov: {4} | Tape: {5}", this.currentState, this.TapeheadPosition, tempChar, this.CurrentTapeChar, command.MOV, this.Tape.Length < 50 ? new string(this.Tape) : "Tape zu lang (> 50)"));
 
 			this.RaiseAfterStateChanged();
 
@@ -129,7 +140,7 @@ namespace TuringSimulator.CS.Core
 		private void Reset(bool skipAfterStateChanged)
 		{
 			this.CurrentCommandIndex = null;
-			this.tapePosition = 0;
+			this.tapeheadPosition = 0;
 			this.Terminated = false;
 			this.Tape = null;
 			this.nextMove = MovementValues.Undefined;

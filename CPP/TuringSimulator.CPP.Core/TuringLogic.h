@@ -21,7 +21,7 @@ namespace TuringSimulator
 			private:
 				CppShared::ITuringCommandList^ commandList;
 				cli::array<wchar_t>^ tape;
-				int tapePosition;
+				int tapeheadPosition;
 				CppShared::MovementValues nextMove;
 				bool terminated;
 				bool ready;
@@ -63,9 +63,9 @@ namespace TuringSimulator
 				}
 
 				/// <summary></summary>
-				virtual	property int TapePosition
+				virtual	property int TapeheadPosition
 				{
-					int get() { return this->tapePosition; }
+					int get() { return this->tapeheadPosition; }
 				}
 
 				/// <summary></summary>
@@ -77,7 +77,13 @@ namespace TuringSimulator
 				/// <summary></summary>
 				virtual property wchar_t CurrentTapeChar
 				{
-					wchar_t get() { return ( this->Tape == nullptr || this->Tape->Length == 0 ) ? '?' : this->Tape[this->TapePosition]; };
+					wchar_t get() 
+					{
+						if ( this->Tape == nullptr || this->Tape->Length == 0 || this->TapeheadPosition < 0 || this->TapeheadPosition >= this->Tape->Length )
+							return '$';
+
+						return this->Tape[this->TapeheadPosition];
+					};
 				}
 
 				/// <summary></summary>
@@ -101,7 +107,7 @@ namespace TuringSimulator
 				virtual void Initialize(CppShared::ITuringCommandList ^ turingCommandList, System::String ^ inputString);
 
 				/// <summary></summary>
-				virtual void Load(System::String ^ filename, System::String ^ inputString);
+				virtual void InitializeFromFile(System::String ^ filename, System::String ^ inputString);
 
 				/// <summary>Wiederholt 'Step' solange wie 'true' zurückgegeben wird</summary>
 				virtual void Start();

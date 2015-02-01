@@ -14,7 +14,7 @@ namespace TuringSimulator
 		{
 			namespace CppShared = TuringSimulator::CPP::Shared;
 
-			void TuringLogic::Load(System::String ^ filename, System::String ^ inputString)
+			void TuringLogic::InitializeFromFile(System::String ^ filename, System::String ^ inputString)
 			{
 				CppShared::ITuringCommandList ^ turingCommandList = gcnew TuringCommandList();
 				this->Initialize(turingCommandList->LoadFromFile(filename), inputString);
@@ -32,7 +32,7 @@ namespace TuringSimulator
 			
 			bool TuringLogic::Step(void)
 			{
-				this->RaiseLogReceived(String::Format("Pre-Step : Pos: {0} | char: {1} | nMov: {2} | Tape: {3}", this->TapePosition, this->CurrentTapeChar, this->nextMove, this->Tape->Length < 50 ? gcnew String(this->Tape) : "Tape zu lang (> 50)"));
+				this->RaiseLogReceived(String::Format("Pre-Step : State: {0,3} | Pos: {1,3} | char: {2}      | nMov: {3} | Tape: {4}", this->currentState, this->TapeheadPosition, this->CurrentTapeChar, this->nextMove, this->Tape->Length < 50 ? gcnew String(this->Tape) : "Tape zu lang (> 50)"));
 				
 				switch ( this->nextMove )
 				{						
@@ -41,11 +41,13 @@ namespace TuringSimulator
 						this->ready = false;
 						this->RaiseLogReceived("Keine Ausführung - Zustand STOP!");
 						return false;
+					case CppShared::MovementValues::N:
+						break;
 					case CppShared::MovementValues::R:
-						this->tapePosition++;
+						this->tapeheadPosition++;
 						break;
 					case CppShared::MovementValues::L:
-						this->tapePosition--;
+						this->tapeheadPosition--;
 						break;
 					case CppShared::MovementValues::Undefined:
 						break;
@@ -58,15 +60,16 @@ namespace TuringSimulator
 				if ( !this->CurrentCommandIndex.HasValue )
 					throw gcnew Exception("Gefordertes Kommando nicht in Liste gefunden!");
 
+				System::Diagnostics::Debug::WriteLine(System::String::Format("Hole Kommando mit Index {0} aus Liste...", this->CurrentCommandIndex));
 				CppShared::ITuringCommand ^ command = this->CommandList[this->CurrentCommandIndex.Value];
 				this->currentState = command->Z1;
 
 				// Zeichen auf Tape ggfls. ersetzen lt. Anweisung
-				if ( command->SZ != '#' )
-					this->Tape[this->TapePosition] = command->SZ;
+				if ( command->SZ != '#' && command->SZ != '$' )
+					this->Tape[this->TapeheadPosition] = command->SZ;
 				
 				this->nextMove = command->MOV;
-				this->RaiseLogReceived(String::Format("Post-Step: Pos: {0} | char: {1} -> {2} | Mov: {3} | Tape: {4}", this->TapePosition, tempChar, this->CurrentTapeChar, command->MOV, this->Tape->Length < 50 ? gcnew String(this->Tape) : "Tape zu lang (> 50)"));
+				this->RaiseLogReceived(String::Format("Post-Step: State: {0,3} | Pos: {1,3} | char: {2} -> {3} |  Mov: {4} | Tape: {5}", this->currentState, this->TapeheadPosition, tempChar, this->CurrentTapeChar, command->MOV, this->Tape->Length < 50 ? gcnew String(this->Tape) : "Tape zu lang (> 50)"));
 				this->RaiseAfterStateChanged();
 
 				return true;			
@@ -106,7 +109,9 @@ namespace TuringSimulator
 			void TuringLogic::Reset(bool skipAfterStateChanged)
 			{
 				this->currentCommandIndex = System::Nullable<System::Int32>();
-				this->tapePosition = 0;
+				this->nextMove = CppShared::MovementValues::Undefined;
+				this->currentState = 0;
+				this->tapeheadPosition = 0;
 				this->terminated = false;
 				this->tape = nullptr;
 				this->nextMove = CppShared::MovementValues::Undefined;

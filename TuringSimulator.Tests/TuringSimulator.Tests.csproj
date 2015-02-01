@@ -67,10 +67,6 @@
       <Project>{294A617F-44BB-4707-8D1C-91D8989E80A9}</Project>
       <Name>TuringSimulator.CS.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CS\TuringSimulator.CS.Shared\TuringSimulator.CS.Shared.csproj">
-      <Project>{F52F6EB5-3BDA-4A1F-B894-5B8AEF74FB25}</Project>
-      <Name>TuringSimulator.CS.Shared</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

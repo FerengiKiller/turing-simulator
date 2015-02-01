@@ -27,6 +27,8 @@ namespace TuringSimulator
 				property wchar_t SZ;
 				
 				property TuringSimulator::CPP::Shared::MovementValues MOV;
+
+				void Initialize(System::String ^ rawData);
 			};
 		}
 	}

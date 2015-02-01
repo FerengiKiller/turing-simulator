@@ -24,7 +24,7 @@ namespace TuringSimulator
 				
 				property cli::array<wchar_t> ^ Tape { cli::array<wchar_t> ^ get(); }
 				
-				property int TapePosition { System::Int32 get(); }
+				property int TapeheadPosition { System::Int32 get(); }
 				
 				property MovementValues NextMove { MovementValues get(); }
 				
@@ -38,7 +38,8 @@ namespace TuringSimulator
 
 				void Initialize(ITuringCommandList ^ turingCommandList, System::String ^ inputString);
 
-				void Load(System::String ^ filename, System::String ^ inputString);
+				/// <summary></summary>
+				void InitializeFromFile(System::String ^ filename, System::String ^ inputString);
 				
 				void Start();
 				
