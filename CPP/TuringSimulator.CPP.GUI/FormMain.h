@@ -210,7 +210,7 @@ namespace TuringSimulatorCPPGUI {
 			this->tsmiOpen->Name = L"tsmiOpen";
 			this->tsmiOpen->Size = System::Drawing::Size(120, 22);
 			this->tsmiOpen->Text = L"Öffnen...";
-			this->tsmiOpen->Click += gcnew System::EventHandler(this, &FormMain::tsmiOpen_Click);
+			this->tsmiOpen->Click += gcnew System::EventHandler(this, &FormMain::LoadTuringProgram);
 			// 
 			// toolStripMenuItem2
 			// 
@@ -273,7 +273,7 @@ namespace TuringSimulatorCPPGUI {
 			this->btnSelectAndLoad->TabIndex = 12;
 			this->btnSelectAndLoad->Text = L"...";
 			this->btnSelectAndLoad->UseVisualStyleBackColor = true;
-			this->btnSelectAndLoad->Click += gcnew System::EventHandler(this, &FormMain::btnSelectAndLoad_Click);
+			this->btnSelectAndLoad->Click += gcnew System::EventHandler(this, &FormMain::LoadTuringProgram);
 			// 
 			// btnLoadFile
 			// 
@@ -346,7 +346,7 @@ namespace TuringSimulatorCPPGUI {
 			this->btnLoadTape->TabIndex = 20;
 			this->btnLoadTape->Text = L"Laden";
 			this->btnLoadTape->UseVisualStyleBackColor = true;
-			this->btnLoadTape->Click += gcnew System::EventHandler(this, &FormMain::btnLoadTape_Click);
+			this->btnLoadTape->Click += gcnew System::EventHandler(this, &FormMain::LoadTuringTape);
 			// 
 			// tbLog
 			// 
@@ -418,19 +418,6 @@ namespace TuringSimulatorCPPGUI {
 		{
 			this->Logic->Reset();
 		}
-		
-		System::Void tsmiOpen_Click(System::Object^  sender, System::EventArgs^  e)
-		{
-			OpenFileDialog^ dialog = gcnew OpenFileDialog();
-            dialog->Filter = "Turing-Programme|*.tur|Alle Dateien|*.*";
-            if( dialog->ShowDialog() != System::Windows::Forms::DialogResult::OK )
-            {
-                return;
-            }
-
-			this->tbFilename->Text = dialog->FileName;
-			this->Logic->InitializeFromFile(this->tbFilename->Text, this->tbTape->Text);
-		}
 
 		System::Void FormMain_Shown(System::Object^  sender, System::EventArgs^  e)
 		{
@@ -448,10 +435,10 @@ namespace TuringSimulatorCPPGUI {
 			this->Logic->InitializeFromFile(this->tbFilename->Text, this->tbTape->Text);
 		}
 		
-		System::Void btnSelectAndLoad_Click(System::Object^  sender, System::EventArgs^  e)
+		System::Void LoadTuringProgram(System::Object^  sender, System::EventArgs^  e)
 		{
 			OpenFileDialog^ dialog = gcnew OpenFileDialog();
-            dialog->Filter = "Turing-Programme|*.tur|Alle Dateien|*.*";
+            dialog->Filter = "Turing-Programm|*.tur|Alle Dateien|*.*";
             if( dialog->ShowDialog() != System::Windows::Forms::DialogResult::OK )
             {
                 return;
@@ -461,10 +448,10 @@ namespace TuringSimulatorCPPGUI {
 			this->Logic->InitializeFromFile(this->tbFilename->Text, this->tbTape->Text);
 		}
 		
-		System::Void btnLoadTape_Click(System::Object^  sender, System::EventArgs^  e) 
+		System::Void LoadTuringTape(System::Object^  sender, System::EventArgs^  e) 
 		{
 			OpenFileDialog^ dialog = gcnew OpenFileDialog();
-            dialog->Filter = "Turing-Bänder (Turing Tape)|*.ttp|Alle Dateien|*.*";
+            dialog->Filter = "Turing-Band (Turing Tape)|*.ttp|Alle Dateien|*.*";
             if( dialog->ShowDialog() != System::Windows::Forms::DialogResult::OK )
             {
                 return;

@@ -17,22 +17,6 @@ namespace TuringSimulator.CS.Core
 	/// </remarks>
 	public class TuringCommandList : List<ITuringCommand>, ITuringCommandList
 	{
-		public ITuringCommandList LoadFromXml(string filename)
-		{
-			this.Clear();
-
-			try
-			{
-			}
-			catch ( Exception )
-			{
-				this.Clear();
-				throw;
-			}
-
-			return this;
-		}
-
 		/// <summary>
 		/// 
 		/// </summary>
