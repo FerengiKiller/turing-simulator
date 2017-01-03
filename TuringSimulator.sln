@@ -1,24 +1,26 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CPP", "CPP", "{231A206D-07F2-4C86-811E-AC5B0487E2FD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CS", "CS", "{4138FDCD-A2CC-4229-A7F8-11B72AA47974}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuringSimulator.CS.Core", "CS\TuringSimulator.CS.Core\TuringSimulator.CS.Core.csproj", "{294A617F-44BB-4707-8D1C-91D8989E80A9}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TuringSimulator.CPP.Core", "CPP\TuringSimulator.CPP.Core\TuringSimulator.CPP.Core.vcproj", "{D1A50EEA-5D9C-46DC-9BEC-EE8C6C1D6926}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuringSimulator.Tests", "TuringSimulator.Tests\TuringSimulator.Tests.csproj", "{46D4D71B-D9A8-4D6A-BFB6-95FFB0A44827}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D145DCF-7F21-459D-9C5F-E6DCF8151F47}"
 	ProjectSection(SolutionItems) = preProject
 		Readme.txt = Readme.txt
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TuringSimulator.CPP.GUI", "CPP\TuringSimulator.CPP.GUI\TuringSimulator.CPP.GUI.vcproj", "{9B43AB62-AE32-4810-A3CE-B0277203F331}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuringSimulator.CS.Core", "CS\TuringSimulator.CS.Core\TuringSimulator.CS.Core.csproj", "{294A617F-44BB-4707-8D1C-91D8989E80A9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TuringSimulator.CPP.Shared", "CPP\TuringSimulator.CPP.Shared\TuringSimulator.CPP.Shared.vcproj", "{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TuringSimulator.CPP.Core", "CPP\TuringSimulator.CPP.Core\TuringSimulator.CPP.Core.vcxproj", "{D1A50EEA-5D9C-46DC-9BEC-EE8C6C1D6926}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuringSimulator.Tests", "TuringSimulator.Tests\TuringSimulator.Tests.csproj", "{46D4D71B-D9A8-4D6A-BFB6-95FFB0A44827}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TuringSimulator.CPP.GUI", "CPP\TuringSimulator.CPP.GUI\TuringSimulator.CPP.GUI.vcxproj", "{9B43AB62-AE32-4810-A3CE-B0277203F331}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TuringSimulator.CPP.Shared", "CPP\TuringSimulator.CPP.Shared\TuringSimulator.CPP.Shared.vcxproj", "{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,9 +90,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{294A617F-44BB-4707-8D1C-91D8989E80A9} = {4138FDCD-A2CC-4229-A7F8-11B72AA47974}
 		{D1A50EEA-5D9C-46DC-9BEC-EE8C6C1D6926} = {231A206D-07F2-4C86-811E-AC5B0487E2FD}
 		{9B43AB62-AE32-4810-A3CE-B0277203F331} = {231A206D-07F2-4C86-811E-AC5B0487E2FD}
 		{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A} = {231A206D-07F2-4C86-811E-AC5B0487E2FD}
-		{294A617F-44BB-4707-8D1C-91D8989E80A9} = {4138FDCD-A2CC-4229-A7F8-11B72AA47974}
 	EndGlobalSection
 EndGlobal

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,8 +10,14 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TuringSimulator.Tests</RootNamespace>
     <AssemblyName>TuringSimulator.Tests</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,11 +61,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CPP\TuringSimulator.CPP.Core\TuringSimulator.CPP.Core.vcproj">
+    <ProjectReference Include="..\CPP\TuringSimulator.CPP.Core\TuringSimulator.CPP.Core.vcxproj">
       <Project>{D1A50EEA-5D9C-46DC-9BEC-EE8C6C1D6926}</Project>
       <Name>TuringSimulator.CPP.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CPP\TuringSimulator.CPP.Shared\TuringSimulator.CPP.Shared.vcproj">
+    <ProjectReference Include="..\CPP\TuringSimulator.CPP.Shared\TuringSimulator.CPP.Shared.vcxproj">
       <Project>{C06C7D31-EA06-4CBA-BD2A-4B17091CCA8A}</Project>
       <Name>TuringSimulator.CPP.Shared</Name>
     </ProjectReference>
